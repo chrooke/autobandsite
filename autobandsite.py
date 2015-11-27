@@ -33,7 +33,7 @@ song_list_item_block_templ=templates+'song_list_item_block.tmpl'
 song_block_templ=templates+'song_block.tmpl'
 
 #template substitusions
-song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','ALBUMPAGE','SONGPAGE','GENRE','COMPOSER','COPYRIGHT']
+song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','ALBUMPAGE','SONGPAGE','GENRE','COMPOSER','COPYRIGHT','DOWNLOAD_LINK','COVER_ART']
 
 ###HELPER FUNCTIONS
 
@@ -94,11 +94,17 @@ def composer(song):
 def artwork(song):
      return read_data_tag(song,'APIC:')
      
+def cover_art(song):
+    return album_art_file(albumname(song))
+     
 def albumpage(song):
     return forfilename(albumname(song))+'.html'
     
 def songpage(song):
     return forfilename(song)[:-4]+'.html' #slice on song name removes .mp3
+    
+def download_link(song):
+    return build_media+forfilename(song)
      
 # more helpers
 
@@ -108,7 +114,6 @@ def song_from_album(album):
 def album_data(album,data):
         return data(song_from_album(album))   
  
-        
 def album_art_file(album):
     return build_images+forfilename(album_data(album,albumname))+".jpg"
         
@@ -210,6 +215,7 @@ for album in album_list():
         
 #Build each song page
 for song in songs.keys():
+    print song
     page_title=title(song)+' by '+artist(song)
     with open(build_dir+songpage(song),'w') as templ:
         content=song_block(song)
