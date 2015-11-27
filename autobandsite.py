@@ -10,7 +10,7 @@ from mutagen import File
 ##GLOBALS
 
 # band info
-bandname="Geekido Music"
+bandname="Chris Cooke"
 
 #directories
 css="css"
@@ -30,10 +30,10 @@ tracks=defaultdict(list)
 base_templ=templates+'base.tmpl'
 album_block_templ=templates+'album_block.tmpl'
 song_list_item_block_templ=templates+'song_list_item_block.tmpl'
-album_list_item_block_templ=templates+'album_list_item_block.tmpl'
+song_block_templ=templates+'song_block.tmpl'
 
 #template substitusions
-song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST']
+song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','ALBUMPAGE','SONGPAGE','GENRE','COMPOSER','COPYRIGHT']
 
 ###HELPER FUNCTIONS
 
@@ -56,7 +56,7 @@ def read_text_tag(song,tag):
     try:
         return songs[song].tags[tag].text[0].encode('ascii','ignore')
     except:
-        return None
+        return ''
         
 def read_data_tag(song,tag):
     try:
@@ -94,16 +94,23 @@ def composer(song):
 def artwork(song):
      return read_data_tag(song,'APIC:')
      
+def albumpage(song):
+    return forfilename(albumname(song))+'.html'
+    
+def songpage(song):
+    return forfilename(song)[:-4]+'.html' #slice on song name removes .mp3
+     
 # more helpers
 
 def song_from_album(album):
     return tracks[album][0][1]
     
 def album_data(album,data):
-        return data(song_from_album(album))    
+        return data(song_from_album(album))   
+ 
         
 def album_art_file(album):
-        return build_images+forfilename(album_data(album,albumname))+".jpg"
+    return build_images+forfilename(album_data(album,albumname))+".jpg"
         
 def album_list(reverse=False):
     album_list=tracks.keys()
@@ -124,11 +131,11 @@ def song_list_item_block(song):
             block=re.compile(attr).sub(globals()[attr.lower()](song),block)         
         return block
         
-def album_list_item_block(album):
-    with open(album_list_item_block_templ,'r') as templ:
+def song_block(song):
+    with open(song_block_templ,'r') as templ:
         block=templ.read()
         for attr in song_attrs:
-            block=re.compile(attr).sub(album_data(album,globals()[attr.lower()]),block)         
+            block=re.compile(attr).sub(globals()[attr.lower()](song),block)         
         return block
 
 def album_block(album):
@@ -157,16 +164,17 @@ for song in os.listdir(songfiles):
         songs[song]=File(songfiles+song)
         #copy song file to site, sanitizing filename
         shutil.copyfile(songfiles+song,build_media+forfilename(song))
-        
-        
+
+
 #build the tracks data structure
 for song in songs.keys():
-    try:
+    print song
+    if albumname(song):
         tracks[albumname(song)].append((int(track(song)),song))
-    except:
+    else:
         pass #songs without album names get skipped
-        
-        
+
+
 #sort each album's tracks by track number, generate album art
 for album in tracks.keys():
     tracks[album].sort(key=lambda x:x[0])
@@ -176,13 +184,34 @@ for album in tracks.keys():
             img.write(art)
     else:
         shutil.copyfile(images+"default.jpg",album_art_file(album))
-        
-        
-#make index page
+
+
+#make index page - this shows the most recent album with the option to see more
 with open(build_dir+'index.html','w') as templ:
     content=album_block(album_list(True)[0])
-    content+='<a href=music.html>See more albums.</a>'
+    content+='<a href=albums.html>See more albums.</a>'
     templ.write(fill_in_page(bandname,content))
 
+#Build music page - this lists all albums
+with open(build_dir+'albums.html','w') as templ:
+    content=''
+    for album in album_list(True):
+        content+=album_block(album)
+    templ.write(fill_in_page('Albums by '+bandname,content))
 
-            
+# build each album page
+for album in album_list():
+    page_title=album_data(album,albumname)+' by '+bandname
+    with open(build_dir+album_data(album,albumpage),'w') as templ:
+        content=album_block(album)
+        for tracknum,song in tracks[album]:
+            content+=song_list_item_block(song)     
+        templ.write(fill_in_page(page_title,content))
+        
+#Build each song page
+for song in songs.keys():
+    page_title=title(song)+' by '+artist(song)
+    with open(build_dir+songpage(song),'w') as templ:
+        content=song_block(song)
+        templ.write(fill_in_page(page_title,content))
+    
