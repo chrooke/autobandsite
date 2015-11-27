@@ -1,5 +1,9 @@
 - styling so the page looks like something
 - some kind of page layout
 - stock headers and footers
-- add feedback capability
+- add offline feedback capability (form writes a file to server that gets syncedback to the desktop for review
 - utility to check mp3s for problems(and possibly correct them) before running the main script 
+- additional files of narrative that aren't part of the ID3 tags, that can be mapped to the files and displayed
+- ditto for additional notes on albums
+- extra pages that aren't directly tied to the songs, like an "about" page
+- tip jar
