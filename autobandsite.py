@@ -162,6 +162,9 @@ os.mkdir(build_css,0755)
 os.mkdir(build_media,0755)
 os.mkdir(build_images,0755)
 
+#copy robots.txt
+shutil.copy('robots.txt',build_dir)
+
 #pull metadata from mp3s, building the songs data structure, and copy them to the media directory
 for song in os.listdir(songfiles):
     if song.endswith('.mp3'):
@@ -173,7 +176,6 @@ for song in os.listdir(songfiles):
 
 #build the tracks data structure
 for song in songs.keys():
-    print song
     if albumname(song):
         tracks[albumname(song)].append((int(track(song)),song))
     else:
@@ -215,7 +217,6 @@ for album in album_list():
         
 #Build each song page
 for song in songs.keys():
-    print song
     page_title=title(song)+' by '+artist(song)
     with open(build_dir+songpage(song),'w') as templ:
         content=song_block(song)
