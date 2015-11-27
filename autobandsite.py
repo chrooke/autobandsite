@@ -17,10 +17,12 @@ css="css"
 templates="templates/"
 songfiles="songfiles/"
 images="images/"
+scripts="scripts/"
 build_dir="../autobandsite-build/"
 build_css=build_dir+"css/"
 build_media=build_dir+"media/"
 build_images=build_dir+"images/"
+build_scripts=build_dir+"scripts/"
 
 #data structures
 songs={}
@@ -158,12 +160,18 @@ try:
 except:
     pass
 os.mkdir(build_dir,0755)
-os.mkdir(build_css,0755)
+#os.mkdir(build_css,0755)
 os.mkdir(build_media,0755)
-os.mkdir(build_images,0755)
+#os.mkdir(build_images,0755)
+#os.mkdir(build_scripts,0755)
 
 #copy robots.txt
 shutil.copy('robots.txt',build_dir)
+
+#copy scripts and css
+shutil.copytree(scripts,build_scripts)
+shutil.copytree(css,build_css)
+shutil.copytree(images,build_images)
 
 #pull metadata from mp3s, building the songs data structure, and copy them to the media directory
 for song in os.listdir(songfiles):
