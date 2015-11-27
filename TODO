@@ -7,3 +7,4 @@
 - ditto for additional notes on albums
 - extra pages that aren't directly tied to the songs, like an "about" page
 - tip jar
+- permit unicode in most strings, and just convert them for filenames, instead of shifting everything to ASCII as it comes out of the metadata, as as present
