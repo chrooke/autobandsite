@@ -67,7 +67,7 @@ def filename(song):
 
 def read_text_tag(song,tag):
     try:
-        return songs[song].tags[tag].text[0].encode('ascii','ignore')
+        return songs[song].tags[tag].text[0]
     except:
         return ''
         
@@ -81,13 +81,13 @@ def albumname(song):
     return read_text_tag(song,'TALB')
         
 def year(song):
-    return read_text_tag(song,'TDRC')
+    return read_text_tag(song,'TDRC').text
 
 def track(song):
      return read_text_tag(song,'TRCK').split('/')[0]  
      
 def title(song):
-    return read_text_tag(song,'TIT2')    
+    return read_text_tag(song,'TIT2')   
 
 def copyright(song):
     return read_text_tag(song,'COMM::eng')
@@ -219,21 +219,21 @@ for album in tracks.keys():
         with open(build_images+album_art_file(album),'wb') as img:
             img.write(art)
     else:
-        shutil.copyfile(images+"default.jpg",album_art_file(album))
+        shutil.copyfile(images+"default.jpg",build_images+album_art_file(album))
 
 
 #make index page - this shows the most recent album with the option to see more
 with open(build_dir+'index.html','w') as templ:
     content=album_block(album_list(True)[0])
     content+='<a href=albums.html>See more albums.</a>'
-    templ.write(fill_in_page(bandname,content))
+    templ.write(fill_in_page(bandname,content).encode('utf8'))
 
 #Build music page - this lists all albums
 with open(build_dir+'albums.html','w') as templ:
     content=''
     for album in album_list(True):
         content+=album_block(album)
-    templ.write(fill_in_page('Albums by '+bandname,content))
+    templ.write(fill_in_page('Albums by '+bandname,content).encode('utf8'))
 
 # build each album page
 for album in album_list():
@@ -242,12 +242,12 @@ for album in album_list():
         content=album_block(album)
         for tracknum,song in tracks[album]:
             content+=song_list_item_block(song)     
-        templ.write(fill_in_page(page_title,content))
+        templ.write(fill_in_page(page_title,content).encode('utf8'))
         
 #Build each song page
 for song in songs.keys():
     page_title=title(song)+' by '+artist(song)
     with open(build_songs+songpage(song)[len(prod_songs):],'w') as templ:
         content=song_block(song)
-        templ.write(fill_in_page(page_title,content))
+        templ.write(fill_in_page(page_title,content).encode('utf8'))
     
