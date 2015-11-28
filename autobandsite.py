@@ -46,7 +46,7 @@ song_block_templ=templates+'song_block.tmpl'
 abs_js_templ=templates+'abs.js.tmpl'
 
 #template substitusions
-song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','ALBUMPAGE','SONGPAGE','GENRE','COMPOSER','COPYRIGHT','DOWNLOAD_LINK','COVER_ART']
+song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','ALBUMPAGE','SONGPAGE','GENRE','COMPOSER','COPYRIGHT','DOWNLOAD_LINK','COVER_ART','SAFE_NAME']
 
 ###HELPER FUNCTIONS
 
@@ -88,6 +88,9 @@ def track(song):
      
 def title(song):
     return read_text_tag(song,'TIT2')   
+    
+def safe_name(song):
+    return safe(title(song))
 
 def copyright(song):
     return read_text_tag(song,'COMM::eng')
