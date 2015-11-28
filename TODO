@@ -1,3 +1,5 @@
+Things I plan on doing, in no particular order:
+
 - styling so the page looks like something
 - some kind of page layout
 - stock headers and footers
@@ -8,3 +10,4 @@
 - extra pages that aren't directly tied to the songs, like an "about" page
 - tip jar
 - permit unicode in most strings, and just convert them for filenames, instead of shifting everything to ASCII as it comes out of the metadata, as as present
+- add "skins", alternatives for templates and css, specified in a variable
