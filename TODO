@@ -2,7 +2,7 @@ Things I plan on doing, in no particular order:
 
 - styling so the page looks like something
 - some kind of page layout
-- stock headers and footers
+- stock headers
 - add offline feedback capability (form writes a file to server that gets syncedback to the desktop for review
 - utility to check mp3s for problems(and possibly correct them) before running the main script 
 - additional files of narrative that aren't part of the ID3 tags, that can be mapped to the files and displayed
