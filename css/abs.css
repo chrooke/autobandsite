@@ -1,4 +1,26 @@
+
+.songlist ol {
+	list-style-type: none;
+}
+
+
+.tracknumber {
+	display: inline-block;
+	width: 20px;
+	text-align: right;
+}
+
+
+.songbuttons {
+	display: inline-block;
+}
+
 .songbuttons button {
 	background: none;
 	border: none;
 }
+
+.songname {
+	display: inline-block;
+}
+

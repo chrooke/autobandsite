@@ -12,6 +12,7 @@ from mutagen import File
 # band info - replace this with your own info
 bandname="Chris Cooke"
 siteurl="http://localhost/~chris/"
+siteowner="Chris Cooke"
 
 #directories
 css="css"
@@ -47,7 +48,7 @@ abs_js_templ=templates+'abs.js.tmpl'
 
 #template substitusions
 song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','ALBUMPAGE','SONGPAGE','GENRE','COMPOSER','COPYRIGHT','DOWNLOAD_LINK','COVER_ART','SAFE_NAME']
-
+site_tags = {'SITEURL':siteurl,'SITEOWNER':siteowner}
 ###HELPER FUNCTIONS
 
 ## General helpers
@@ -144,7 +145,11 @@ def fill_in_page(title,contents):
     with open(base_templ,'r') as templ:
         block=templ.read().replace('TITLE_BLOCK',title)
         block=block.replace('CONTENT_BLOCK',contents)
-        block=block.replace('SITEURL',siteurl) #this has to come after CONTENT_BLOCK to catch any site_urls in other templates
+        #Site tags (not related to songs. Fill in after content.
+        for tag in site_tags:
+            block=block.replace(tag,site_tags[tag]) 
+#        block=block.replace('SITEOWNER',siteowner)
+#        block=block.replace('SITEURL',siteurl)
     return block
 
 def song_list_item_block(song):
@@ -243,8 +248,10 @@ for album in album_list():
     page_title=album_data(album,albumname)+' by '+bandname
     with open(build_albums+album_data(album,albumpage)[len(prod_albums):],'w') as templ:
         content=album_block(album)
+        content+='\n<section>\n<div class=songlist">\n<ol>\n'
         for tracknum,song in tracks[album]:
-            content+=song_list_item_block(song)     
+            content+=song_list_item_block(song)  
+        content+='\n</ol>\n</div>\n</section>\n'  
         templ.write(fill_in_page(page_title,content).encode('utf8'))
         
 #Build each song page
