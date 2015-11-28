@@ -5,6 +5,9 @@ Concept: Avoid the security overhead of a dynamic web page by generating a stati
 
 Prerequite: The program requires the Mutagen python module. You can find it here: https://bitbucket.org/lazka/mutagen
 
-Usage: copy all your mp3 files into the songfiles directory, then run the script. Look for an autobandsite-build directory in the parent directory. Copy these files to your web site.
+Usage: Copy all your mp3 files into the songfiles directory, then run the script. Look for an autobandsite-build directory in the parent directory. Copy these files to your web site.
 
-Assumptions: all mp3 files must have an album name and a track number defined.
+Warnings: 
+	- All mp3 files have an album name and a track number defined.
+	- Generated site files will not work properly by browsing the files. 
+	  A web server is required for the site to function properly. 
