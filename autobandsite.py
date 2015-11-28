@@ -54,16 +54,16 @@ song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','AL
 #Makes a string safe to use as a file name
 # replaces spaces with _
 # removes any characters except alphanumeric,_,or .
-def forfilename(item):
+def safe(item):
     #replace spaces with underscores
     item = re.compile('\s').sub('_',item)
     #remove non alphanum,_, or .
     item = re.compile('[^\w\d_\.]').sub('',item)
-    return item
+    return item.encode('ascii','ignore')
 
 ## Metatdata helpers
 def filename(song):
-    return forfilename(song)
+    return safe(song)
 
 def read_text_tag(song,tag):
     try:
@@ -111,13 +111,13 @@ def cover_art(song):
     return prod_images+album_art_file(albumname(song))
      
 def albumpage(song):
-    return prod_albums+forfilename(albumname(song))+'.html'
+    return prod_albums+safe(albumname(song))+'.html'
     
 def songpage(song):
-    return prod_songs+forfilename(song)[:-4]+'.html' #slice on song name removes .mp3
+    return prod_songs+safe(song)[:-4]+'.html' #slice on song name removes .mp3
     
 def download_link(song):
-    return prod_media+forfilename(song)
+    return prod_media+safe(song)
     
      
 # more helpers
@@ -129,7 +129,7 @@ def album_data(album,data):
         return data(song_from_album(album))   
  
 def album_art_file(album):
-    return forfilename(album_data(album,albumname))+".jpg"
+    return safe(album_data(album,albumname))+".jpg"
         
 def album_list(reverse=False):
     album_list=tracks.keys()
@@ -200,7 +200,7 @@ for song in os.listdir(songfiles):
         #get metadata from mp3 files
         songs[song]=File(songfiles+song)
         #copy song file to site, sanitizing filename
-        shutil.copyfile(songfiles+song,build_media+forfilename(song))
+        shutil.copyfile(songfiles+song,build_media+safe(song))
 
 
 #build the tracks data structure
