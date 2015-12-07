@@ -9,7 +9,8 @@
 	float:left;
 }
 
-.navbar a:link, a:visited {
+.navbar a:link,
+.navbar a:visited {
 	display: block;
 	width: 120px;
     	font-weight: bold;
@@ -21,7 +22,8 @@
     	text-transform: uppercase;
 }
 
-.navbar a:hover, a:active {
+.navbar a:hover,
+.navbar a:active {
     	background-color: #7A991A;
 } 
 
