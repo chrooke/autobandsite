@@ -34,3 +34,7 @@ class Song:
         self.download_link="PROD_MEDIA"+self.filename           
         self.cover_art="PROD_IMAGES"+self.safe_name+".jpg"       
         self.songpage="PROD_SONGS"+self.safe_name+".html"     
+        self.grouping=self.__read_text_tag('TIT1')
+        self.tags=[]
+        if self.grouping: self.tags=self.grouping.split(',')
+        
