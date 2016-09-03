@@ -2,9 +2,10 @@
 
 import os
 import shutil
-import re
-from collections import defaultdict
 from mutagen import File
+from helpers import *
+from Song import *
+from Album import *
 
 
 ##GLOBALS
@@ -36,8 +37,9 @@ prod_songs=siteurl+"songs/"
 prod_albums=siteurl+"albums/"
 
 #data structures
-songs={}
-tracks=defaultdict(list)
+songs=[]
+albumdict={}
+albums=[]
 
 #template filenames
 base_templ=templates+'base.tmpl'
@@ -47,98 +49,19 @@ song_block_templ=templates+'song_block.tmpl'
 abs_js_templ=templates+'abs.js.tmpl'
 
 #template substitusions
-song_attrs = ['TITLE','ALBUMNAME','YEAR','TRACK', 'COPYRIGHT','BPM','ARTIST','ALBUMPAGE','SONGPAGE','GENRE','COMPOSER','COPYRIGHT','DOWNLOAD_LINK','COVER_ART','SAFE_NAME']
+common_attrs = ['ALBUMNAME','YEAR', 'COPYRIGHT','BPM','ARTIST','GENRE','COMPOSER','COPYRIGHT','DOWNLOAD_LINK','COVER_ART','SAFE_NAME']
+song_attrs = common_attrs+['TITLE','TRACK','SONGPAGE']
+#flatten(song_attrs)
+album_attrs = common_attrs+['ALBUMPAGE']
+#flatten(album_attrs)
 site_tags = {'SITEURL':siteurl,'SITEOWNER':siteowner}
-###HELPER FUNCTIONS
 
-## General helpers
-#Makes a string safe to use as a file name
-# replaces spaces with _
-# removes any characters except alphanumeric,_,or .
-def safe(item):
-    #replace spaces with underscores
-    item = re.compile('\s').sub('_',item)
-    #remove non alphanum,_, or .
-    item = re.compile('[^\w\d_\.]').sub('',item)
-    return item.encode('ascii','ignore')
-
-## Metatdata helpers
-def filename(song):
-    return safe(song)
-
-def read_text_tag(song,tag):
-    try:
-        return songs[song].tags[tag].text[0]
-    except:
-        return ''
-        
-def read_data_tag(song,tag):
-    try:
-        return songs[song].tags[tag].data
-    except:
-        return None
-
-def albumname(song):
-    return read_text_tag(song,'TALB')
-        
-def year(song):
-    return read_text_tag(song,'TDRC').text
-
-def track(song):
-     return read_text_tag(song,'TRCK').split('/')[0]  
-     
-def title(song):
-    return read_text_tag(song,'TIT2')   
-    
-def safe_name(song):
-    return safe(title(song))
-
-def copyright(song):
-    return read_text_tag(song,'COMM::eng')
-    
-def bpm(song):
-    return read_text_tag(song,'TBPM')
-
-def artist(song):
-    return read_text_tag(song,'TPE1')  
-    
-def genre(song):
-    return read_text_tag(song,'TCON') 
-    
-def composer(song):
-    return read_text_tag(song,'TCOM') 
-     
-def artwork(song):
-     return read_data_tag(song,'APIC:')
-     
-def cover_art(song):
-    return prod_images+album_art_file(albumname(song))
-     
-def albumpage(song):
-    return prod_albums+safe(albumname(song))+'.html'
-    
-def songpage(song):
-    return prod_songs+safe(song)[:-4]+'.html' #slice on song name removes .mp3
-    
-def download_link(song):
-    return prod_media+safe(song)
-    
-     
+         
 # more helpers
 
-def song_from_album(album):
-    return tracks[album][0][1]
-    
-def album_data(album,data):
-        return data(song_from_album(album))   
- 
-def album_art_file(album):
-    return safe(album_data(album,albumname))+".jpg"
         
 def album_list(reverse=False):
-    album_list=tracks.keys()
-    album_list.sort(key=lambda x:album_data(x,year),reverse=reverse)
-    return album_list
+    return sorted(albums,key=lambda x:int(x.year),reverse=reverse)
 
 # templating helpers
 def fill_in_page(title,contents):
@@ -150,27 +73,31 @@ def fill_in_page(title,contents):
             block=block.replace(tag,site_tags[tag]) 
 #        block=block.replace('SITEOWNER',siteowner)
 #        block=block.replace('SITEURL',siteurl)
+        block=block.replace('PROD_IMAGES',prod_images)
+        block=block.replace('PROD_ALBUMS',prod_albums)
+        block=block.replace('PROD_SONGS',prod_songs)
+        block=block.replace('PROD_MEDIA',prod_media)
     return block
 
 def song_list_item_block(song):
     with open(song_list_item_block_templ,'r') as templ:
         block=templ.read()
         for attr in song_attrs:
-            block=re.compile(attr).sub(globals()[attr.lower()](song),block)         
+            block=re.compile(attr).sub(getattr(song,attr.lower()),block)         
         return block
         
 def song_block(song):
     with open(song_block_templ,'r') as templ:
         block=templ.read()
         for attr in song_attrs:
-            block=re.compile(attr).sub(globals()[attr.lower()](song),block)         
+            block=re.compile(attr).sub(getattr(song,attr.lower()),block)         
         return block
 
 def album_block(album):
     with open(album_block_templ,'r') as templ:
         block=templ.read()
-        for attr in song_attrs:
-            block=re.compile(attr).sub(album_data(album,globals()[attr.lower()]),block)         
+        for attr in album_attrs:
+            block=re.compile(attr).sub(getattr(album,attr.lower()),block)         
         return block
 
 ## MAIN CODE
@@ -206,28 +133,30 @@ with open(build_scripts+'abs.js','w') as target:
 for song in os.listdir(songfiles):
     if song.endswith('.mp3'):
         #get metadata from mp3 files
-        songs[song]=File(songfiles+song)
+        s=Song(song,File(songfiles+song))
+        songs.append(s)
         #copy song file to site, sanitizing filename
-        shutil.copyfile(songfiles+song,build_media+safe(song))
+        shutil.copyfile(songfiles+song,build_media+s.filename)
 
-
-#build the tracks data structure
-for song in songs.keys():
-    if albumname(song):
-        tracks[albumname(song)].append((int(track(song)),song))
+#populate the list of albums by reading the songs
+for song in songs:
+    if song.albumname:
+        if not song.albumname in albumdict:
+            albumdict[song.albumname]=Album(song)
+            albums.append(albumdict[song.albumname])
+        else:
+            albumdict[song.albumname].addSong(song)
     else:
         pass #songs without album names get skipped
-
-
-#sort each album's tracks by track number, generate album art
-for album in tracks.keys():
-    tracks[album].sort(key=lambda x:x[0])
-    art=album_data(album,artwork)
+        
+#generate album art files
+for album in albums:
+    art=album.artwork
     if art:
-        with open(build_images+album_art_file(album),'wb') as img:
+        with open(build_images+album.artwork_filename,'wb') as img:
             img.write(art)
     else:
-        shutil.copyfile(images+"default.jpg",build_images+album_art_file(album))
+        shutil.copyfile(images+"default.jpg",build_images+album.artwork_filename)
 
 
 #make index page - this shows the most recent album with the option to see more
@@ -245,19 +174,19 @@ with open(build_dir+'albums.html','w') as templ:
 
 # build each album page
 for album in album_list():
-    page_title=album_data(album,albumname)+' by '+bandname
-    with open(build_albums+album_data(album,albumpage)[len(prod_albums):],'w') as templ:
+    page_title=album.name+' by '+ bandname
+    with open(build_albums+album.safe_name+".html",'w') as templ:
         content=album_block(album)
         content+='\n<section>\n<div class=songlist">\n<ol>\n'
-        for tracknum,song in tracks[album]:
+        for song in album.tracks:
             content+=song_list_item_block(song)  
         content+='\n</ol>\n</div>\n</section>\n'  
         templ.write(fill_in_page(page_title,content).encode('utf8'))
         
 #Build each song page
-for song in songs.keys():
-    page_title=title(song)+' by '+artist(song)
-    with open(build_songs+songpage(song)[len(prod_songs):],'w') as templ:
+for song in songs:
+    page_title=song.title+' by '+ song.artist
+    with open(build_songs+song.safe_name+".html",'w') as templ:
         content=song_block(song)
         templ.write(fill_in_page(page_title,content).encode('utf8'))
     
