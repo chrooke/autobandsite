@@ -1,0 +1,53 @@
+.navbar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.navbar li {
+	float:left;
+}
+
+.navbar a:link,
+.navbar a:visited {
+	display: block;
+	width: 120px;
+    	font-weight: bold;
+    	color: #FFFFFF;
+    	background-color: #98bf21;
+    	text-align: center;
+    	padding: 4px;
+    	text-decoration: none;
+    	text-transform: uppercase;
+}
+
+.navbar a:hover,
+.navbar a:active {
+    	background-color: #7A991A;
+} 
+
+.songlist ol {
+	list-style-type: none;
+}
+
+.tracknumber {
+	display: inline-block;
+	width: 20px;
+	text-align: right;
+}
+
+
+.songbuttons {
+	display: inline-block;
+}
+
+.songbuttons button {
+	background: none;
+	border: none;
+}
+
+.songname {
+	display: inline-block;
+}
+
