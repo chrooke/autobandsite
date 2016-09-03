@@ -2,45 +2,30 @@
 import os
 import shutil
 
-css="css"
-images="images"
-scripts="scripts"
-templates="templates"
+directories=["css","images","scripts","templates"]
+files=["buildsite.py","siteinfo.py","robots.txt"]
 
-base="./"
-basecss=base+css
-baseimages=base+images
-basescripts=base+scripts
-basetemplates=base+templates
 
-#Get the skin
-skin="hierarchy-individual_play_pause"
+#Set the skin
+skin="playlist-based"
+
+
+
 skindir="skins/"+skin+"/"
-skincss=skindir+css
-skinimages=skindir+images
-skinscripts=skindir+scripts
-skintemplates=skindir+templates
-
+base="./"
 
 
 # copy the files and directories to current
-shutil.copytree(skincss,basecss)
-shutil.copytree(skinimages,baseimages)
-shutil.copytree(skinscripts,basescripts)
-shutil.copytree(skintemplates,basetemplates)
-shutil.copy(skindir+'buildsite.py',base)
-shutil.copy(skindir+'siteinfo.py',base)
-shutil.copy(skindir+'robots.txt',base)
+for dir in directories:
+    shutil.copytree(skindir+dir,base+dir)
 
-# build
+for file in files:
+    shutil.copy(skindir+file,base)
+
+
+# build the site
 import buildsite
 
 # remove copied files and directories
-shutil.rmtree(basecss)
-shutil.rmtree(baseimages)
-shutil.rmtree(basescripts)
-shutil.rmtree(basetemplates)
-os.remove(base+'buildsite.py')
-os.remove(base+'siteinfo.py')
-os.remove(base+'robots.txt')
+import cleanup
 
