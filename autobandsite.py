@@ -14,6 +14,7 @@ from Album import *
 bandname="Chris Cooke"
 siteurl="http://localhost/~chris/"
 siteowner="Chris Cooke"
+siteyear="2016"
 
 #directories
 css="css"
@@ -48,14 +49,15 @@ song_list_item_block_templ=templates+'song_list_item_block.tmpl'
 song_block_templ=templates+'song_block.tmpl'
 abs_js_templ=templates+'abs.js.tmpl'
 
-#template substitusions
-common_attrs = ['ALBUMNAME','YEAR', 'COPYRIGHT','BPM','ARTIST','GENRE','COMPOSER','COPYRIGHT','DOWNLOAD_LINK','COVER_ART','SAFE_NAME']
-song_attrs = common_attrs+['TITLE','TRACK','SONGPAGE']
-#flatten(song_attrs)
-album_attrs = common_attrs+['ALBUMPAGE']
 #flatten(album_attrs)
-site_tags = {'SITEURL':siteurl,'SITEOWNER':siteowner}
-
+site_tags = {   'SITEURL':siteurl,
+                'SITEOWNER':siteowner,
+                'SITEYEAR':siteyear,
+                'PROD_IMAGES':prod_images,
+                'PROD_ALBUMS':prod_albums,
+                'PROD_SONGS':prod_songs,
+                'PROD_MEDIA':prod_media,
+            }
          
 # more helpers
 
@@ -71,33 +73,27 @@ def fill_in_page(title,contents):
         #Site tags (not related to songs. Fill in after content.
         for tag in site_tags:
             block=block.replace(tag,site_tags[tag]) 
-#        block=block.replace('SITEOWNER',siteowner)
-#        block=block.replace('SITEURL',siteurl)
-        block=block.replace('PROD_IMAGES',prod_images)
-        block=block.replace('PROD_ALBUMS',prod_albums)
-        block=block.replace('PROD_SONGS',prod_songs)
-        block=block.replace('PROD_MEDIA',prod_media)
     return block
 
 def song_list_item_block(song):
     with open(song_list_item_block_templ,'r') as templ:
         block=templ.read()
-        for attr in song_attrs:
-            block=re.compile(attr).sub(getattr(song,attr.lower()),block)         
+        for attr in pub_attrs(song):
+            block=re.compile(attr.upper()).sub(getattr(song,attr),block)         
         return block
         
 def song_block(song):
     with open(song_block_templ,'r') as templ:
         block=templ.read()
-        for attr in song_attrs:
-            block=re.compile(attr).sub(getattr(song,attr.lower()),block)         
+        for attr in pub_attrs(song):
+            block=re.compile(attr.upper()).sub(getattr(song,attr),block)         
         return block
 
 def album_block(album):
     with open(album_block_templ,'r') as templ:
         block=templ.read()
-        for attr in album_attrs:
-            block=re.compile(attr).sub(getattr(album,attr.lower()),block)         
+        for attr in pub_attrs(album):
+            block=re.compile(attr.upper()).sub(getattr(album,attr),block)         
         return block
 
 ## MAIN CODE
@@ -108,10 +104,7 @@ try:
 except:
     pass
 os.mkdir(build_dir,0755)
-#os.mkdir(build_css,0755)
 os.mkdir(build_media,0755)
-#os.mkdir(build_images,0755)
-#os.mkdir(build_scripts,0755)
 os.mkdir(build_songs,0755)
 os.mkdir(build_albums,0755)
 
@@ -123,11 +116,12 @@ shutil.copytree(scripts,build_scripts)
 shutil.copytree(css,build_css)
 shutil.copytree(images,build_images)
 
-#create scripts that need to run through the template process
+#run certain scripts through the template process while copying
 with open(build_scripts+'abs.js','w') as target:
     with open(abs_js_templ,'r') as templ:
         target.write(templ.read().replace('SITEURL',siteurl))
 
+# populate the songs and albums lists, copy the song files, and generate album artwork
 
 #pull metadata from mp3s, building the songs data structure, and copy them to the media directory
 for song in os.listdir(songfiles):
@@ -151,13 +145,14 @@ for song in songs:
         
 #generate album art files
 for album in albums:
-    art=album.artwork
+    art=album.artwork()
     if art:
         with open(build_images+album.artwork_filename,'wb') as img:
             img.write(art)
     else:
         shutil.copyfile(images+"default.jpg",build_images+album.artwork_filename)
 
+# Now we have the raw material to actually generate web pages
 
 #make index page - this shows the most recent album with the option to see more
 with open(build_dir+'index.html','w') as templ:
@@ -174,19 +169,19 @@ with open(build_dir+'albums.html','w') as templ:
 
 # build each album page
 for album in album_list():
-    page_title=album.name+' by '+ bandname
+    page_title=album.albumname+' by '+ bandname
     with open(build_albums+album.safe_name+".html",'w') as templ:
         content=album_block(album)
         content+='\n<section>\n<div class=songlist">\n<ol>\n'
-        for song in album.tracks:
+        for song in album.tracks():
             content+=song_list_item_block(song)  
         content+='\n</ol>\n</div>\n</section>\n'  
         templ.write(fill_in_page(page_title,content).encode('utf8'))
         
-#Build each song page
-for song in songs:
-    page_title=song.title+' by '+ song.artist
-    with open(build_songs+song.safe_name+".html",'w') as templ:
-        content=song_block(song)
-        templ.write(fill_in_page(page_title,content).encode('utf8'))
+#Build each song page - provided as an example
+#for song in songs:
+#    page_title=song.title+' by '+ song.artist
+#    with open(build_songs+song.safe_name+".html",'w') as templ:
+#        content=song_block(song)
+#        templ.write(fill_in_page(page_title,content).encode('utf8'))
     

@@ -13,3 +13,5 @@ def safe(item):
     item = re.compile('[^\w\d_\.]').sub('',item)
     return item.encode('ascii','ignore')
     
+def pub_attrs(obj):
+    return [x for x in obj.__dict__.keys() if x.find(obj.__class__.__name__)<0 ]
