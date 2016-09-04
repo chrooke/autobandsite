@@ -47,11 +47,14 @@ genre_playlists=[]
 
 #template filenames
 base_templ=templates+'base.tmpl'
-album_block_templ=templates+'album_block.tmpl'
 song_list_item_block_templ=templates+'song_list_item_block.tmpl'
 song_block_templ=templates+'song_block.tmpl'
-abs_js_templ=templates+'abs.js.tmpl'
+album_table_item_block_templ=templates+'album_table_item_block.tmpl'
+album_block_templ=templates+'album_block.tmpl'
+playlist_table_item_block_templ=templates+'playlist_table_item_block.tmpl'
 playlist_block_templ=templates+'playlist_block.tmpl'
+abs_js_templ=templates+'abs.js.tmpl'
+
 
 #flatten(album_attrs)
 site_tags = {   'SITEURL':siteurl,
@@ -104,6 +107,13 @@ def indexed_song_block(song,index):
     block=re.compile('INDEX').sub(str(index),block)
     return block
 
+def album_table_item_block(album):
+    with open(album_table_item_block_templ,'r') as templ:
+        block=templ.read()
+        for attr in pub_attrs(album):
+            block=re.compile(attr.upper()).sub(getattr(album,attr),block)       
+        return block
+    
 def album_block(album):
     with open(album_block_templ,'r') as templ:
         block=templ.read()
@@ -113,6 +123,13 @@ def album_block(album):
         
 def playlist_block(playlist):
     with open(playlist_block_templ,'r') as templ:
+        block=templ.read()
+        for attr in pub_attrs(playlist):
+            block=re.compile(attr.upper()).sub(getattr(playlist,attr),block)         
+        return block
+        
+def playlist_table_item_block(playlist):
+    with open(playlist_table_item_block_templ,'r') as templ:
         block=templ.read()
         for attr in pub_attrs(playlist):
             block=re.compile(attr.upper()).sub(getattr(playlist,attr),block)         

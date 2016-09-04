@@ -2,8 +2,6 @@
 from buildshell import *
 
 
-
-
 def player_block(songs):
     block="""<section>
     <audio id="main_player">Sorry, you need HTML 5</audio>
@@ -23,7 +21,41 @@ def player_block(songs):
     for song in songs:
         block+=indexed_song_block(song,songs.index(song))
     return block
+        
+        
+def album_table_block(albums,columns):
+    done=False
+    counter=0
+    block='<div class="rTable">'
+    while not done:
+        block+='<div class="rTableRow">'
+        for i in range(counter, counter+columns):
+            if i<len(albums): 
+                block+=album_table_item_block(albums[i])
+            else:
+                done=True
+        block+='</div>'
+        counter += columns
+    block +='</div>'
+    return block
+       
     
+def playlist_table_block(playlists,columns):
+    done=False
+    counter=0
+    block='<div class="rTable">'
+    while not done:
+        block+='<div class="rTableRow">'
+        for i in range(counter, counter+columns):
+            if i<len(playlists): 
+                block+=playlist_table_item_block(playlists[i])
+            else:
+                done=True
+        block+='</div>'
+        counter += columns
+    block +='</div>'
+    return block
+     
 #make index page - this shows the most recent album with the option to see more
 for p in playlists:
     if p.name == "showcase":
@@ -34,30 +66,37 @@ with open(build_dir+'index.html','w') as templ:
     try:
         content=playlist_block(showcase_playlist)
         content+=player_block(showcase_playlist.tracks());
-        content+='<a href=playlists.html>See more playlists.</a>'
     except:
         album=album_list(True)[0]
         content=album_block(album)     
         content+=player_block(album.tracks());
-        content+='<a href=albums.html>See more albums.</a>'
     templ.write(fill_in_page(bandname,content).encode('utf8')) 
 
-#Build music page - this lists all albums
+#Build Explore by Album
 with open(build_dir+'albums.html','w') as templ:
-    content=''
-    for album in album_list(True):
-        content+=album_block(album)
+    content='<header class="content_header">Explore by Album</header>'
+    content+=album_table_block(album_list(True),4)
     templ.write(fill_in_page('Albums by '+bandname,content).encode('utf8'))
     
-#Build music page - this lists all playlists
+#Build Explore by Playlist
 with open(build_dir+'playlists.html','w') as templ:
-    content='<h1>Curated Playlists</h1>'
-    for playlist in tag_playlists:
-        content+=playlist_block(playlist)
+    content='<header class="content_header">Explore All Playlists</header>'
+    content+=playlist_table_block(tag_playlists,4)
     content+='<h1>Genre Playlists</h1>'
-    for playlist in genre_playlists:
-        content+=playlist_block(playlist)
+    content+=playlist_table_block(genre_playlists,4)
     templ.write(fill_in_page('Playlists by '+bandname,content).encode('utf8'))
+    
+#Build Explore by Tags
+with open(build_dir+'tags.html','w') as templ:
+    content='<header class="content_header">Explore by Tags</header>'
+    content+=playlist_table_block(tag_playlists,4)
+    templ.write(fill_in_page('Tag Playlists by '+bandname,content).encode('utf8'))
+    
+#Build Explore by Genre
+with open(build_dir+'genres.html','w') as templ:
+    content='<header class="content_header">Explore by Genre</header>'
+    content+=playlist_table_block(genre_playlists,4)
+    templ.write(fill_in_page('Genre Playlists by '+bandname,content).encode('utf8'))
 
 # build each album page
 for album in album_list():

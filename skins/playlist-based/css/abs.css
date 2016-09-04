@@ -1,31 +1,22 @@
-.navbar ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+body {
+	background-image: url("../images/congruent_outline_gm.png");
+	background-color: #333;
 }
 
-.navbar li {
-	float:left;
+#base_header {
+	background-color: #9c9c9c;
 }
 
-.navbar a:link,
-.navbar a:visited {
-	display: block;
-	width: 120px;
-    	font-weight: bold;
-    	color: #FFFFFF;
-    	background-color: #98bf21;
-    	text-align: center;
-    	padding: 4px;
-    	text-decoration: none;
-    	text-transform: uppercase;
+#base_nav {
+	background-color: #9c9c9c;
+}
+#base_content {
+	background-color: #9c9c9c;
 }
 
-.navbar a:hover,
-.navbar a:active {
-    	background-color: #7A991A;
-} 
+#base_footer {
+	background-color: #9c9c9c;
+}
 
 .songlist ol {
 	display: none;
@@ -56,3 +47,14 @@
 	display: none;
 }
 
+.rTable { display: table; } 
+
+.rTableRow { display: table-row; } 
+
+.rTableHeading { display: table-header-group; } 
+
+.rTableBody { display: table-row-group; } 
+
+.rTableFoot { display: table-footer-group; } 
+
+.rTableCell, .rTableHead { display: table-cell; }
