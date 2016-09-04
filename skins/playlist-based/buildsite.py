@@ -7,9 +7,13 @@ def player_block(songs):
     <audio id="main_player">Sorry, you need HTML 5</audio>
     <div class="player">
     	<div class="playerbuttons">
-            <button id="bPrevSong" onclick="prevSong()"><img id="bPrevSong_img" src="SITEURLimages/prev.png" alt="Previous"></button>
-    		<button id="bPlayPause" onclick="togglePlayPause()"><img id="bPlayPause_img" src="SITEURLimages/play.png" alt="Play"></button>
-    		<button id="bNextSong" onclick="nextSong()"><img id="bNextSong_img" src="SITEURLimages/next.png" alt="Next"></button>
+            <div class="rTable">
+                <div class="rTableRow">
+                    <div class="rTableCell"><button id="bPrevSong" onclick="prevSong()"><img id="bPrevSong_img" src="SITEURLimages/prev.png" alt="Previous"></button></div>
+    		        <div class="rTableCell"><button id="bPlayPause" onclick="togglePlayPause()"><img id="bPlayPause_img" src="SITEURLimages/play.png" alt="Play"></button></div>
+    		        <div class="rTableCell"><button id="bNextSong" onclick="nextSong()"><img id="bNextSong_img" src="SITEURLimages/next.png" alt="Next"></button></div>
+                </div>
+            </div>
     	</div>
     </div>
     </section>"""   
@@ -17,10 +21,13 @@ def player_block(songs):
     block+='\n<section>\n<div class="songlist">\n<ol id="playlist">\n'
     for song in songs:
         block+=indexed_song_list_item_block(song,songs.index(song))  
-    block+='\n</ol>\n</div>\n</section>\n'  
+    block+='\n</ol>\n</div>\n</section>\n' 
+    block+='<div id="now_playing">Now playing' 
     for song in songs:
         block+=indexed_song_block(song,songs.index(song))
+    block+='</div>'
     return block
+    
         
         
 def album_table_block(albums,columns):
