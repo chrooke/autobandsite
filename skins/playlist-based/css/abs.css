@@ -28,6 +28,7 @@
 } 
 
 .songlist ol {
+	display: none;
 	list-style-type: none;
 }
 
@@ -49,5 +50,9 @@
 
 .songname {
 	display: inline-block;
+}
+
+.songinfo {
+	display: none;
 }
 

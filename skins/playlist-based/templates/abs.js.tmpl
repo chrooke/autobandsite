@@ -1,12 +1,76 @@
-function togglePlayPause(song) {
-    var image = document.getElementById('ppImage.'+song);
-    if (image.src.match("play")) {
-        image.src = "SITEURLimages/Pause.png";
-	image.alt = "Pause";
-	document.getElementById('player.'+song).play()
+var player;
+var playlist;
+var tracks;
+var current;
+var playing=false;
+
+function init(){	
+    player = $('#main_player')[0];
+    playlist = $('#playlist');
+    tracks = playlist.find('li a');
+    len = tracks.length;
+    player.volume = .50;
+    playlist.find('a').click(function(e){
+        e.preventDefault();
+        link = $(this);
+        current = link.parent().index();
+        run(link, player);
+    });
+	$(playlist.find('a')[0]).parent().addClass('active');
+	player.src=$(playlist.find('a')[0]).attr('href');
+    player.onended=nextSong;
+	current = len-1;
+	nextSong();
+}
+
+function nextSong(e) {
+	link = playlist.find('a')[current]; 
+	showHideNowPLaying($(link),false);
+    current++;
+	current=(current==len)?0:current;
+    link = playlist.find('a')[current]; 
+	showHideNowPLaying($(link),true); 
+    run($(link),player);
+}
+
+function prevSong(e) {
+	link = playlist.find('a')[current]; 
+	showHideNowPLaying($(link),false);
+    current--;
+	current=(current < 0)?(len-1):current;
+    link = playlist.find('a')[current];  
+	showHideNowPLaying($(link),true);   
+    run($(link),player);
+}
+
+function run(link, player) {
+    player.src = link.attr('href');
+    par = link.parent();
+    par.addClass('active').siblings().removeClass('active');
+    player.load();
+    playing?player.play():{};
+}
+
+function showHideNowPLaying(link,visible) {
+	track=link.attr('id').split("_")[1];
+	songinfo = $('#songinfo_'+track)[0];
+	visible?$(songinfo).show():$(songinfo).hide();	
+}
+
+function togglePlayPause() {
+    var image = document.getElementById('bPlayPause_img');
+    if (!playing) {
+		playing=true;
+        image.src = "SITEURLimages/pause.png";
+		image.alt = "Pause";
+		//document.getElementById('main_player').play()
+		player.play()
     } else {
+		playing=false;
         image.src = "SITEURLimages/play.png";
-	image.alt = "Play";
-        document.getElementById('player.'+song).pause()
+		image.alt = "Play";
+        //document.getElementById'main_player').pause()
+		player.pause();
     }
 }
+window.onload=init;
