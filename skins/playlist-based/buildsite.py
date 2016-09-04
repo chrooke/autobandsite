@@ -18,10 +18,10 @@ def player_block(songs):
 #   content+='<audio id="main_player" preload="auto" tabindex="0" controls="" type="audio/mpeg"><source type="audio/mp3" src="">Sorry, your browser does not support HTML5 audio.</audio>'
     block+='\n<section>\n<div class="songlist">\n<ol id="playlist">\n'
     for song in songs:
-        block+=song_list_item_block(song)  
+        block+=indexed_song_list_item_block(song,songs.index(song))  
     block+='\n</ol>\n</div>\n</section>\n'  
     for song in songs:
-        block+=song_block(song)
+        block+=indexed_song_block(song,songs.index(song))
     return block
     
 #make index page - this shows the most recent album with the option to see more

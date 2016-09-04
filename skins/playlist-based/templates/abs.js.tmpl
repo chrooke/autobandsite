@@ -52,8 +52,8 @@ function run(link, player) {
 }
 
 function showHideNowPLaying(link,visible) {
-	track=link.attr('id').split("_")[1];
-	songinfo = $('#songinfo_'+track)[0];
+	index=link.attr('id').split("_")[1];
+	songinfo = $('#songinfo_'+index)[0];
 	visible?$(songinfo).show():$(songinfo).hide();	
 }
 

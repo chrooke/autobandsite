@@ -74,8 +74,13 @@ def song_list_item_block(song):
     with open(song_list_item_block_templ,'r') as templ:
         block=templ.read()
         for attr in pub_attrs(song):
-            block=re.compile(attr.upper()).sub(getattr(song,attr),block)         
+            block=re.compile(attr.upper()).sub(getattr(song,attr),block)      
         return block
+        
+def indexed_song_list_item_block(song,index):
+    block=song_list_item_block(song)
+    block=re.compile('INDEX').sub(str(index),block)
+    return block
         
 def song_block(song):
     with open(song_block_templ,'r') as templ:
@@ -83,6 +88,11 @@ def song_block(song):
         for attr in pub_attrs(song):
             block=re.compile(attr.upper()).sub(getattr(song,attr),block)         
         return block
+        
+def indexed_song_block(song,index):
+    block=song_block(song)
+    block=re.compile('INDEX').sub(str(index),block)
+    return block
 
 def album_block(album):
     with open(album_block_templ,'r') as templ:
