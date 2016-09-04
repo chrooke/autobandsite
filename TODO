@@ -1,6 +1,15 @@
 Things I plan on doing, in no particular order:
 
+Priority
+
 - styling so the page looks like something
+- be able to download an entire album as a zip file
+- the ability to play a shuffle of all songs in an album/playlist
+- download buttons for songs
+- playlists based on genre
+
+The rest
+
 - some kind of page layout
 - stock headers
 - add offline feedback capability (form writes a file to server that gets syncedback to the desktop for review
@@ -9,6 +18,3 @@ Things I plan on doing, in no particular order:
 - ditto for additional notes on albums
 - extra pages that aren't directly tied to the songs, like an "about" page
 - tip jar
-- be able to play an entire album by clicking the image
-- be able to download an entire album as a zip file
-- the ability to play a shuffle of all songs
