@@ -10,12 +10,15 @@ class Playlist:
         self.download_link="PROD_MEDIA"+self.safe_name+".zip" 
         self.page="PROD_PLAYLISTS"+self.safe_name+".html"    
         self.__tracks=[]
+        self.count=str(0)
         
     def addSong(self,song):
         self.__tracks.append(song)
+        self.count=str(len(self.__tracks))
         
     def addSongList(self,songs):
         self.__tracks+=songs
+        self.count=str(len(self.__tracks))
         
     def tracks(self):
         return self.__tracks

@@ -39,8 +39,11 @@ prod_playlists=siteurl+"playlists/"
 songs=[]
 albumdict={}
 albums=[]
-tags=set([])
 playlists=[]
+tags=set([])
+genres=set([])
+tag_playlists=[]
+genre_playlists=[]
 
 #template filenames
 base_templ=templates+'base.tmpl'
@@ -105,7 +108,7 @@ def album_block(album):
     with open(album_block_templ,'r') as templ:
         block=templ.read()
         for attr in pub_attrs(album):
-            block=re.compile(attr.upper()).sub(getattr(album,attr),block)         
+            block=re.compile(attr.upper()).sub(getattr(album,attr),block)       
         return block
         
 def playlist_block(playlist):
@@ -172,10 +175,11 @@ for album in albums:
     else:
         shutil.copyfile(images+"default.jpg",build_images+album.artwork_filename)
 
-#make set of song tags
+#make set of song tags and genres
 for song in songs:
     for tag in song.tags():
         tags.add(tag)
+    if song.genre: genres.add(song.genre)
         
 #pre-generate a playlist for each tag
 for tag in tags:
@@ -185,7 +189,19 @@ for tag in tags:
         if tag in song.tags():
             songlist.add(song)
     playlist.addSongList(songlist)
-    playlists.append(playlist)
+    tag_playlists.append(playlist)
+        
+#pre-generate a playlist for each tag
+for genre in genres:
+    playlist=Playlist(genre)
+    songlist=set([])
+    for song in songs:
+        if genre == song.genre:
+            songlist.add(song)
+    playlist.addSongList(songlist)
+    genre_playlists.append(playlist)
+    
+playlists=tag_playlists+genre_playlists
             
             
 

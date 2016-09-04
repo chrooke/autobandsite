@@ -23,7 +23,7 @@ try:
         shutil.copy(skindir+file,base)
     # build the site
     #import buildsite
-#    import buildsite
+    #    import buildsite
     from buildsite import *
 except Exception as e:
     print(e);

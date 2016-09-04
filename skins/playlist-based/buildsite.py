@@ -51,8 +51,11 @@ with open(build_dir+'albums.html','w') as templ:
     
 #Build music page - this lists all playlists
 with open(build_dir+'playlists.html','w') as templ:
-    content=''
-    for playlist in playlists:
+    content='<h1>Curated Playlists</h1>'
+    for playlist in tag_playlists:
+        content+=playlist_block(playlist)
+    content+='<h1>Genre Playlists</h1>'
+    for playlist in genre_playlists:
         content+=playlist_block(playlist)
     templ.write(fill_in_page('Playlists by '+bandname,content).encode('utf8'))
 
