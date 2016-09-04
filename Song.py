@@ -20,6 +20,7 @@ class Song:
         self.filename = safe(filename)
         self.__tags=tags
         self.albumname=self.__read_text_tag('TALB')
+        self.albumpage="PROD_ALBUMS"+safe(self.albumname)+".html" 
         self.year=self.__read_text_tag('TDRC').text
         self.track=self.__read_text_tag('TRCK').split('/')[0] 
         self.title=self.__read_text_tag('TIT2')
