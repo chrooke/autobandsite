@@ -2,7 +2,7 @@
 from helpers import safe
 
 class Album:
-    'an ordered collection of songs'
+    'an ordered collection of songs released as a set'
     
     def __init__(self,song):
         self.albumname=song.albumname

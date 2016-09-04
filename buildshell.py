@@ -5,6 +5,7 @@ from mutagen import File
 from helpers import *
 from Song import *
 from Album import *
+from Playlist import *
 from siteinfo import *
 
 ##GLOBALS
@@ -24,6 +25,7 @@ build_images=build_dir+"images/"
 build_scripts=build_dir+"scripts/"
 build_songs=build_dir+"songs/"
 build_albums=build_dir+"albums/"
+build_playlists=build_dir+"playlists/"
 
 prod_css=siteurl+"css/"
 prod_media=siteurl+"media/"
@@ -31,11 +33,14 @@ prod_images=siteurl+"images/"
 prod_scripts=siteurl+"scripts/"
 prod_songs=siteurl+"songs/"
 prod_albums=siteurl+"albums/"
+prod_playlists=siteurl+"playlists/"
 
 #data structures
 songs=[]
 albumdict={}
 albums=[]
+tags=set([])
+playlists=[]
 
 #template filenames
 base_templ=templates+'base.tmpl'
@@ -43,6 +48,7 @@ album_block_templ=templates+'album_block.tmpl'
 song_list_item_block_templ=templates+'song_list_item_block.tmpl'
 song_block_templ=templates+'song_block.tmpl'
 abs_js_templ=templates+'abs.js.tmpl'
+playlist_block_templ=templates+'playlist_block.tmpl'
 
 #flatten(album_attrs)
 site_tags = {   'SITEURL':siteurl,
@@ -52,6 +58,7 @@ site_tags = {   'SITEURL':siteurl,
                 'PROD_ALBUMS':prod_albums,
                 'PROD_SONGS':prod_songs,
                 'PROD_MEDIA':prod_media,
+                'PROD_PLAYLISTS':prod_playlists,
             }
          
 # more helpers
@@ -100,6 +107,13 @@ def album_block(album):
         for attr in pub_attrs(album):
             block=re.compile(attr.upper()).sub(getattr(album,attr),block)         
         return block
+        
+def playlist_block(playlist):
+    with open(playlist_block_templ,'r') as templ:
+        block=templ.read()
+        for attr in pub_attrs(playlist):
+            block=re.compile(attr.upper()).sub(getattr(playlist,attr),block)         
+        return block
 
 ## MAIN CODE
 
@@ -112,6 +126,7 @@ os.mkdir(build_dir,0755)
 os.mkdir(build_media,0755)
 os.mkdir(build_songs,0755)
 os.mkdir(build_albums,0755)
+os.mkdir(build_playlists,0755)
 
 #copy robots.txt
 shutil.copy('robots.txt',build_dir)
@@ -156,5 +171,22 @@ for album in albums:
             img.write(art)
     else:
         shutil.copyfile(images+"default.jpg",build_images+album.artwork_filename)
+
+#make set of song tags
+for song in songs:
+    for tag in song.tags():
+        tags.add(tag)
+        
+#pre-generate a playlist for each tag
+for tag in tags:
+    playlist=Playlist(tag)
+    songlist=set([])
+    for song in songs:
+        if tag in song.tags():
+            songlist.add(song)
+    playlist.addSongList(songlist)
+    playlists.append(playlist)
+            
+            
 
 # Now we have the raw material to actually generate web pages

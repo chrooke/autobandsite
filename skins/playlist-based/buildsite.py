@@ -25,11 +25,22 @@ def player_block(songs):
     return block
     
 #make index page - this shows the most recent album with the option to see more
+for p in playlists:
+    if p.name == "showcase":
+        showcase_playlist=p
+
+
 with open(build_dir+'index.html','w') as templ:
-    content=album_block(album_list(True)[0])
-    content+=player_block(album.tracks());
-    content+='<a href=albums.html>See more albums.</a>'
-    templ.write(fill_in_page(bandname,content).encode('utf8'))
+    try:
+        content=playlist_block(showcase_playlist)
+        content+=player_block(showcase_playlist.tracks());
+        content+='<a href=playlists.html>See more playlists.</a>'
+    except:
+        album=album_list(True)[0]
+        content=album_block(album)     
+        content+=player_block(album.tracks());
+        content+='<a href=albums.html>See more albums.</a>'
+    templ.write(fill_in_page(bandname,content).encode('utf8')) 
 
 #Build music page - this lists all albums
 with open(build_dir+'albums.html','w') as templ:
@@ -37,6 +48,13 @@ with open(build_dir+'albums.html','w') as templ:
     for album in album_list(True):
         content+=album_block(album)
     templ.write(fill_in_page('Albums by '+bandname,content).encode('utf8'))
+    
+#Build music page - this lists all playlists
+with open(build_dir+'playlists.html','w') as templ:
+    content=''
+    for playlist in playlists:
+        content+=playlist_block(playlist)
+    templ.write(fill_in_page('Playlists by '+bandname,content).encode('utf8'))
 
 # build each album page
 for album in album_list():
@@ -44,6 +62,14 @@ for album in album_list():
     with open(build_albums+album.safe_name+".html",'w') as templ:
         content=album_block(album)
         content+=player_block(album.tracks());
+        templ.write(fill_in_page(page_title,content).encode('utf8'))
+        
+# build each playlist page
+for playlist in playlists:
+    page_title=playlist.name+' by '+ bandname
+    with open(build_playlists+playlist.safe_name+".html",'w') as templ:
+        content=playlist_block(playlist)
+        content+=player_block(playlist.tracks());
         templ.write(fill_in_page(page_title,content).encode('utf8'))
         
         

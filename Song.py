@@ -38,7 +38,7 @@ class Song:
         if self.grouping: self.__groups=self.grouping.split(',')
         
     def tags(self):
-        return self._groups
+        return self.__groups
         
     def artwork(self):
         return self.__artwork
