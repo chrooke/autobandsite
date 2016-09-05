@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import shutil
+import time
 from mutagen import File
 from helpers import *
 from Song import *
@@ -59,7 +60,8 @@ abs_js_templ=templates+'abs.js.tmpl'
 #flatten(album_attrs)
 site_tags = {   'SITEURL':siteurl,
                 'SITEOWNER':siteowner,
-                'SITEYEAR':siteyear,
+                'SITEYEAR':time.strftime("%Y"),
+                'SITEDATE':time.strftime("%c"),
                 'PROD_IMAGES':prod_images,
                 'PROD_ALBUMS':prod_albums,
                 'PROD_SONGS':prod_songs,
