@@ -9,9 +9,9 @@ def player_block(songs):
     	<div class="playerbuttons">
             <div class="rTable">
                 <div class="rTableRow">
-                    <div class="rTableCell"><button id="bPrevSong" onclick="prevSong()"><img id="bPrevSong_img" src="SITEURLimages/prev.png" alt="Previous"></button></div>
-    		        <div class="rTableCell"><button id="bPlayPause" onclick="togglePlayPause()"><img id="bPlayPause_img" src="SITEURLimages/play.png" alt="Play"></button></div>
-    		        <div class="rTableCell"><button id="bNextSong" onclick="nextSong()"><img id="bNextSong_img" src="SITEURLimages/next.png" alt="Next"></button></div>
+                    <div class="rTableCell playerbutton"><button id="bPrevSong" onclick="prevSong()"><img id="bPrevSong_img" src="SITEURLimages/prev.png" alt="Previous"></button></div>
+    		        <div class="rTableCell playerbutton"><button id="bPlayPause" onclick="togglePlayPause()"><img id="bPlayPause_img" src="SITEURLimages/play.png" alt="Play"></button></div>
+    		        <div class="rTableCell playerbutton"><button id="bNextSong" onclick="nextSong()"><img id="bNextSong_img" src="SITEURLimages/next.png" alt="Next"></button></div>
                 </div>
             </div>
     	</div>
