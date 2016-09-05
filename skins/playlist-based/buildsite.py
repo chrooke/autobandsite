@@ -17,12 +17,19 @@ def player_block(songs):
     	</div>
     </div>
     </section>"""   
-#   content+='<audio id="main_player" preload="auto" tabindex="0" controls="" type="audio/mpeg"><source type="audio/mp3" src="">Sorry, your browser does not support HTML5 audio.</audio>'
-    block+='\n<section>\n<div class="songlist">\n<ol id="playlist">\n'
+    block+="""<section>
+                <div class="songlist">
+                    <ol id="playlist">"""
     for song in songs:
         block+=indexed_song_list_item_block(song,songs.index(song))  
-    block+='\n</ol>\n</div>\n</section>\n' 
-    block+='<div id="now_playing">Now playing' 
+    block+="""</ol>
+            </div>
+        </section>"""
+    return block
+    
+def now_playing_block(songs):
+    block="""<section>
+    <div id="now_playing">Now playing"""
     for song in songs:
         block+=indexed_song_block(song,songs.index(song))
     block+='</div>'
@@ -33,7 +40,7 @@ def player_block(songs):
 def album_table_block(albums,columns):
     done=False
     counter=0
-    block='<div class="rTable">'
+    block='<div class="album_table rTable">'
     while not done:
         block+='<div class="rTableRow">'
         for i in range(counter, counter+columns):
@@ -50,7 +57,7 @@ def album_table_block(albums,columns):
 def playlist_table_block(playlists,columns):
     done=False
     counter=0
-    block='<div class="rTable">'
+    block='<div class="playlist_table rTable">'
     while not done:
         block+='<div class="rTableRow">'
         for i in range(counter, counter+columns):
@@ -70,13 +77,22 @@ for p in playlists:
 
 
 with open(build_dir+'index.html','w') as templ:
+    content="""<div id="player_container">
+                    <div id="player_source_container">"""
     try:
-        content=playlist_block(showcase_playlist)
-        content+=player_block(showcase_playlist.tracks());
+        content+=playlist_block(showcase_playlist)
+        content+=player_block(showcase_playlist.tracks())
+        content+="""</div>
+                    <div id="now_playing_container">"""
+        content+=now_playing_block(showcase_playlist.tracks())
     except:
         album=album_list(True)[0]
-        content=album_block(album)     
+        content+=album_block(album)     
         content+=player_block(album.tracks());
+        content+="""</div>
+                    <div id="now_playing_container">"""
+        content+=now_playing_block(album.tracks())
+    content+='</div></div>'
     templ.write(fill_in_page(bandname,content).encode('utf8')) 
 
 #Build Explore by Album
@@ -109,16 +125,28 @@ with open(build_dir+'genres.html','w') as templ:
 for album in album_list():
     page_title=album.albumname+' by '+ bandname
     with open(build_albums+album.safe_name+".html",'w') as templ:
-        content=album_block(album)
+        content="""<div id="player_container">
+                    <div id="player_source_container">"""
+        content+=album_block(album)
         content+=player_block(album.tracks());
+        content+="""</div>
+                    <div id="now_playing_container">"""
+        content+=now_playing_block(album.tracks())
+        content+='</div></div>'
         templ.write(fill_in_page(page_title,content).encode('utf8'))
         
 # build each playlist page
 for playlist in playlists:
     page_title=playlist.name+' by '+ bandname
     with open(build_playlists+playlist.safe_name+".html",'w') as templ:
-        content=playlist_block(playlist)
+        content="""<div id="player_container">
+                    <div id="player_source_container">"""
+        content+=playlist_block(playlist)
         content+=player_block(playlist.tracks());
+        content+="""</div>
+                    <div id="now_playing_container">"""
+        content+=now_playing_block(playlist.tracks())
+        content+='</div></div>'
         templ.write(fill_in_page(page_title,content).encode('utf8'))
         
         

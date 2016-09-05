@@ -4,18 +4,102 @@ body {
 }
 
 #base_header {
+	margin: auto;
+	width: 650px;
 	background-color: #9c9c9c;
+	border-style: solid;
+	border-color: #46629c;
+	background-color: #46829c
 }
 
 #base_nav {
-	background-color: #9c9c9c;
+	margin: auto;
+	border-style: solid;
+	border-color: #46629c;
+	width: 650px;
 }
+
+.nav_container {
+	margin: auto;
+	width: 350px;
+	background-color: #46829c;
+}
+
 #base_content {
-	background-color: #9c9c9c;
+	margin: auto;
+	width: 650px;
+	border-style: solid;
+	border-color: #46629c;
 }
 
 #base_footer {
+	margin: auto;
+	width: 650px;
+	border-style: solid;
+	border-color: #46629c;
+	background-color: #46829c
+}
+
+.album_table .rTableCell {
+	width: 150px;
+	height: 150px;
+	background-color: #46829c
+}
+
+.album_table button {
+	width: 150px;
+	height: 150px;
+	border-style: groove;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #46829c
+}
+
+.playlist_table .rTableCell {
+	width: 140px;
+	height: 70px;
+	background-color: #46829c
+}
+
+.playlist_table button {
+	width: 120px;
+	height: 50px;
+	border-style: groove;
+	background-color: #46829c
+	margin: 10px;
+	padding: 10px;
+}
+
+#base_nav .rTableCell {
+	width: 140px;
+	height: 70px;
+	background-color: #46829c
+}
+
+#base_nav button {
+	width: 120px;
+	height: 50px;
+	border-style: groove;
 	background-color: #9c9c9c;
+	margin: 10px;
+	padding: 10px;
+}
+
+#player_container {
+	display: flex;
+	margin: auto;
+	border-style: solid;
+	border-width: 1px;
+	background-color: #46829c
+
+}
+
+#player_source_container {
+	flex: 1;
+}
+
+#now_playing_container {
+	flex: 1;
 }
 
 .songlist ol {
