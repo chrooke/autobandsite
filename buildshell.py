@@ -2,6 +2,7 @@
 import os
 import shutil
 import time
+import filecmp
 from mutagen import File
 from helpers import *
 from Song import *
@@ -139,13 +140,26 @@ def playlist_table_item_block(playlist):
 
 ## MAIN CODE
 
-#remove existing build directory and recreate
+# Make the build dir and media dir if they don't exist.
 try:
-    shutil.rmtree(build_dir)
+    os.mkdir(build_dir,0755)
 except:
     pass
-os.mkdir(build_dir,0755)
-os.mkdir(build_media,0755)
+
+try:
+    os.mkdir(build_media,0755)
+except:
+    pass
+    
+#remove existing build directory and recreete
+
+#we don't want to remove songs - we'll only recreate if they change
+remove_dirs=[build_css,build_images,build_scripts,build_songs,build_albums,build_playlists]
+for dir in remove_dirs:
+    try:
+        shutil.rmtree(dir)
+    except:
+        pass
 os.mkdir(build_songs,0755)
 os.mkdir(build_albums,0755)
 os.mkdir(build_playlists,0755)
@@ -171,8 +185,23 @@ for song in os.listdir(songfiles):
         #get metadata from mp3 files
         s=Song(song,File(songfiles+song))
         songs.append(s)
-        #copy song file to site, sanitizing filename
-        shutil.copyfile(songfiles+song,build_media+s.filename)
+        #copy song file to site, sanitizing filename, but only if the files differ
+        if not filecmp.cmp(songfiles+song,build_media+s.filename): shutil.copyfile(songfiles+song,build_media+s.filename)
+        
+# remove any songs still in media that are no longer in the songfiles directory
+# build a set of songs in the songfiles directory
+current_songs=set([])
+for song in songs: current_songs.add(safe(song.filename))
+
+old_songs=set([])
+for song in os.listdir(build_media): 
+    if song.endswith('.mp3'): old_songs.add(song)
+
+for song in old_songs-current_songs:
+    try:
+        os.remove(build_media+song)
+    except:
+        pass
 
 #populate the list of albums by reading the songs
 for song in songs:

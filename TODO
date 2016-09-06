@@ -18,5 +18,4 @@ The rest
 - extra pages that aren't directly tied to the songs, like an "about" page
 - tip jar
 - ranking of playlists
-- don't rebuild song MP3 file if it already exists and hasn't changed (so the songs won't show as changed and get reuploaded)
 - Explore by Artist
