@@ -4,4 +4,3 @@
 bandname="Chris Cooke"
 siteurl="http://localhost/~chris/"
 siteowner="Chris Cooke"
-siteyear="2016"
