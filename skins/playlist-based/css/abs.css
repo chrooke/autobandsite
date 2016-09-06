@@ -1,6 +1,13 @@
+/* @override http://localhost/~chris/css/abs.css */
+
 body {
 	background-image: url("../images/congruent_outline_gm.png");
 	background-color: #333;
+}
+
+.body_container {
+	margin: auto;
+	width: 900px;
 }
 
 .header_container a:link,
@@ -12,9 +19,10 @@ body {
 
 #base_header {
 	margin: auto;
-	width: 650px;
+	width: 100%;
 	background-color: #9c9c9c;
 	border-style: solid;
+	border-radius: 10px;
 	border-color: #46629c;
 	background-color: #46829c;
 }
@@ -23,35 +31,32 @@ body {
 	margin: auto;
 	border-style: solid;
 	border-color: #46629c;
-	width: 650px;
+	border-radius: 10px;
+	width: 100%;
 	background-color: #46829c;
 }
 
 .nav_container {
 	margin: auto;
-	width: 600px;
+	width: 100%;
 	background-color: #46829c;
 }
 
 #base_content {
 	margin: auto;
-	width: 650px;
-	border-style: solid;
-	border-color: #46629c;
-	background-color: #46829c;
+	width: 100%;
 }
 
 .content_container {
-	margin: auto;
-	width: 600px;
-	padding: 10px;
+	width: 100%;
 }
 
 #base_footer {
 	margin: auto;
-	width: 650px;
+	width: 100%;
 	border-style: solid;
 	border-color: #46629c;
+	border-radius: 10px;
 	background-color: #46829c
 }
 
@@ -99,18 +104,18 @@ body {
 #player_container {
 	display: flex;
 	margin: auto;
+	width: 100%;
 	padding: 2px;
-	background-color: #46829c
-
 }
 
 #player_source_container {
-	width:200px;
+	width:40%;
 	border-style: solid;
 	border-radius: 10px;
 	border-color: #46629c;
 	margin-right: 2px;
 	padding: 5px;
+	background-color: #46829c;
 }
 
 #now_playing_container {
@@ -119,6 +124,7 @@ body {
 	border-radius: 10px;
 	border-color: #46629c;
 	padding: 5px;
+	background-color: #46829c;
 }
 
 .playerbutton button {
@@ -160,6 +166,41 @@ body {
 	display: none;
 }
 
+.explore_playlist {
+	margin: auto;
+	width: 100%;
+	border-style: solid;
+	border-color: #46629c;
+	border-radius: 10px;
+	background-color: #46829c
+}
+
+.explore_album {
+	margin: auto;
+	width: 100%;
+	border-style: solid;
+	border-color: #46629c;
+	border-radius: 10px;
+	background-color: #46829c
+}
+
+.explore_genre {
+	margin: auto;
+	width: 100%;
+	border-style: solid;
+	border-color: #46629c;
+	border-radius: 10px;
+	background-color: #46829c
+}
+
+.explore_tags {
+	margin: auto;
+	width: 100%;
+	border-style: solid;
+	border-color: #46629c;
+	border-radius: 10px;
+	background-color: #46829c
+}
 .rTable { display: table; } 
 
 .rTableRow { display: table-row; } 

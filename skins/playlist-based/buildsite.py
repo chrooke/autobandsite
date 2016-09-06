@@ -97,28 +97,36 @@ with open(build_dir+'index.html','w') as templ:
 
 #Build Explore by Album
 with open(build_dir+'albums.html','w') as templ:
-    content='<header class="content_header">Explore by Album</header>'
-    content+=album_table_block(album_list(True),4)
+    content='<div class="explore_album">'
+    content+='<header class="content_header">Explore by Album</header>'
+    content+=album_table_block(album_list(True),6)
+    content+='</div>'
     templ.write(fill_in_page('Albums by '+bandname,content).encode('utf8'))
     
 #Build Explore by Playlist
 with open(build_dir+'playlists.html','w') as templ:
-    content='<header class="content_header">Explore All Playlists</header>'
-    content+=playlist_table_block(tag_playlists,4)
+    content='<div class="explore_playlist">'
+    content+='<header class="content_header">Explore All Playlists</header>'
+    content+=playlist_table_block(tag_playlists,6)
     content+='<h1>Genre Playlists</h1>'
-    content+=playlist_table_block(genre_playlists,4)
+    content+=playlist_table_block(genre_playlists,6)
+    content+='</div>'
     templ.write(fill_in_page('Playlists by '+bandname,content).encode('utf8'))
     
 #Build Explore by Tags
 with open(build_dir+'tags.html','w') as templ:
-    content='<header class="content_header">Explore by Tags</header>'
-    content+=playlist_table_block(tag_playlists,4)
+    content='<div class="explore_tags">'
+    content+='<header class="content_header">Explore by Tags</header>'
+    content+=playlist_table_block(tag_playlists,6)
+    content+='</div>'
     templ.write(fill_in_page('Tag Playlists by '+bandname,content).encode('utf8'))
     
 #Build Explore by Genre
 with open(build_dir+'genres.html','w') as templ:
-    content='<header class="content_header">Explore by Genre</header>'
-    content+=playlist_table_block(genre_playlists,4)
+    content='<div class="explore_genre">'
+    content+='<header class="content_header">Explore by Genre</header>'
+    content+=playlist_table_block(genre_playlists,6)
+    content+='</div>'
     templ.write(fill_in_page('Genre Playlists by '+bandname,content).encode('utf8'))
 
 # build each album page

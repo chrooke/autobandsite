@@ -3,12 +3,13 @@ Things I plan on doing, in no particular order:
 Priority
 
 - be able to download an entire album as a zip file
-- the ability to play a shuffle of all songs in an album/playlist
 - download buttons for songs
 - "granddaddy" playlist with all songs
+- "test" versus "production" site urls and specify which when building
 
 The rest
 
+- the ability to play a shuffle of all songs in an album/playlist
 - continue refining styling
 - some kind of page layout
 - add offline feedback capability (form writes a file to server that gets syncedback to the desktop for review
