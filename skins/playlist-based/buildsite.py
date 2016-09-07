@@ -29,7 +29,7 @@ def player_block(songs):
     
 def now_playing_block(songs):
     block="""<section>
-    <div id="now_playing">Now playing"""
+    <div id="now_playing"><div class="tab_title">Now playing</div>"""
     for song in songs:
         block+=indexed_song_block(song,songs.index(song))
     block+='</div>'
@@ -99,7 +99,7 @@ with open(build_dir+'index.html','w') as templ:
 with open(build_dir+'albums.html','w') as templ:
     content='<div class="explore_album">'
     content+='<header class="content_header">Explore by Album</header>'
-    content+=album_table_block(album_list(True),6)
+    content+=album_table_block(album_list(True),5)
     content+='</div>'
     templ.write(fill_in_page('Albums by '+bandname,content).encode('utf8'))
     
@@ -107,9 +107,9 @@ with open(build_dir+'albums.html','w') as templ:
 with open(build_dir+'playlists.html','w') as templ:
     content='<div class="explore_playlist">'
     content+='<header class="content_header">Explore All Playlists</header>'
-    content+=playlist_table_block(tag_playlists,6)
+    content+=playlist_table_block(tag_playlists,5)
     content+='<h1>Genre Playlists</h1>'
-    content+=playlist_table_block(genre_playlists,6)
+    content+=playlist_table_block(genre_playlists,5)
     content+='</div>'
     templ.write(fill_in_page('Playlists by '+bandname,content).encode('utf8'))
     
@@ -117,7 +117,7 @@ with open(build_dir+'playlists.html','w') as templ:
 with open(build_dir+'tags.html','w') as templ:
     content='<div class="explore_tags">'
     content+='<header class="content_header">Explore by Tags</header>'
-    content+=playlist_table_block(tag_playlists,6)
+    content+=playlist_table_block(tag_playlists,5)
     content+='</div>'
     templ.write(fill_in_page('Tag Playlists by '+bandname,content).encode('utf8'))
     
@@ -125,7 +125,7 @@ with open(build_dir+'tags.html','w') as templ:
 with open(build_dir+'genres.html','w') as templ:
     content='<div class="explore_genre">'
     content+='<header class="content_header">Explore by Genre</header>'
-    content+=playlist_table_block(genre_playlists,6)
+    content+=playlist_table_block(genre_playlists,5)
     content+='</div>'
     templ.write(fill_in_page('Genre Playlists by '+bandname,content).encode('utf8'))
 

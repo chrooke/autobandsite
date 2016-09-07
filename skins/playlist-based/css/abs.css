@@ -1,8 +1,7 @@
-/* @override http://localhost/~chris/css/abs.css */
-
 body {
 	background-image: url("../images/congruent_outline_gm.png");
 	background-color: #333;
+	font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .body_container {
@@ -13,8 +12,9 @@ body {
 .header_container a:link,
 .header_container a:visited {
 	text-decoration: none;
-	font-size: 40pt;
+	font-size: 60pt;
 	color: #f4de30;
+	font-family: "Drafting Table", Geneva, Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 #base_header {
@@ -39,7 +39,6 @@ body {
 .nav_container {
 	margin: auto;
 	width: 100%;
-	background-color: #46829c;
 }
 
 #base_content {
@@ -51,6 +50,9 @@ body {
 	width: 100%;
 }
 
+.content_header {
+	display: none;
+}
 #base_footer {
 	margin: auto;
 	width: 100%;
@@ -58,6 +60,12 @@ body {
 	border-color: #46629c;
 	border-radius: 10px;
 	background-color: #46829c
+}
+
+#footer_container {
+	padding: 10px;
+	text-decoration: none;
+	font-size: 12pt;
 }
 
 .album_table .rTableCell {
@@ -103,9 +111,9 @@ body {
 
 #player_container {
 	display: flex;
-	margin: auto;
-	width: 100%;
-	padding: 2px;
+	width: 905px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 #player_source_container {
@@ -113,7 +121,6 @@ body {
 	border-style: solid;
 	border-radius: 10px;
 	border-color: #46629c;
-	margin-right: 2px;
 	padding: 5px;
 	background-color: #46829c;
 }
@@ -123,8 +130,29 @@ body {
 	border-style: solid;
 	border-radius: 10px;
 	border-color: #46629c;
-	padding: 5px;
 	background-color: #46829c;
+}
+
+.tab_title {
+	margin-top: -2px;
+	margin-left: -2px;
+	margin-bottom: 0px;
+	padding: 5px;
+	width: 20%;
+	border-style: solid;
+	border-radius: 10px 0px 10px 0px;
+	border-color: #46629c;
+	background-color: #46629c;
+	text-decoration: none;
+	font-family: "Drafting Table", Geneva, Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 20pt;
+	color: #f4de30;
+}
+
+#now_playing section, a {
+	padding: 10px;
+	text-decoration: none;
+	font-size: 12pt;
 }
 
 .playerbutton button {
