@@ -1,9 +1,22 @@
+
+/* #FFF669 */
+/* #0C99CF */
+/* #09A1D9 */
+/* #6C6F70 */
+/* #27282B */
 body {
-	background-image: url("../images/congruent_outline_gm.png");
-	background-color: #333;
+/*	background-image: url("../images/congruent_outline_gm.png");*/
+	background-color: #0C99CF;
 	font-family: Georgia, "Times New Roman", Times, serif;
+	text-decoration: none;
+	font-size: 12pt;
+	color: #fff;
 }
 
+body a {
+	text-decoration: none;
+	color: #FFF669;
+}
 .body_container {
 	margin: auto;
 	width: 900px;
@@ -13,7 +26,6 @@ body {
 .header_container a:visited {
 	text-decoration: none;
 	font-size: 60pt;
-	color: #f4de30;
 	font-family: "Drafting Table", Geneva, Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -23,22 +35,26 @@ body {
 	background-color: #9c9c9c;
 	border-style: solid;
 	border-radius: 10px;
-	border-color: #46629c;
-	background-color: #46829c;
+	border-color: #6C6F70;
+	background-color: #0C99CF;
 }
 
 #base_nav {
 	margin: auto;
 	border-style: solid;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	border-radius: 10px;
 	width: 100%;
-	background-color: #46829c;
+	background-color: #0C99CF;
 }
 
 .nav_container {
 	margin: auto;
-	width: 100%;
+}
+
+.nav_container .rTable {
+	margin: auto;
+	width: %;
 }
 
 #base_content {
@@ -53,25 +69,26 @@ body {
 .content_header {
 	display: none;
 }
-#base_footer {
-	margin: auto;
-	width: 100%;
-	border-style: solid;
-	border-color: #46629c;
-	border-radius: 10px;
-	background-color: #46829c
-}
 
-#footer_container {
-	padding: 10px;
+#base_footer {
+margin: auto;
+width: 100%;
+border-style: solid;
+border-color: #6C6F70;
+border-radius: 10px;
+background-color: #0C99CF
 	text-decoration: none;
 	font-size: 12pt;
+}
+
+.footer_container {
+	padding: 10px;
 }
 
 .album_table .rTableCell {
 	width: 150px;
 	height: 150px;
-	background-color: #46829c
+	background-color: #0C99CF
 }
 
 .album_table button {
@@ -79,6 +96,7 @@ body {
 	height: 150px;
 	border-style: solid;
 	border-radius: 30px;
+	border-color: #6C6F70;
 	text-align: center;
 	vertical-align: middle;
 	background-color: #46829c
@@ -87,7 +105,7 @@ body {
 .playlist_table .rTableCell {
 	width: 140px;
 	height: 70px;
-	background-color: #46829c
+	background-color: #0C99CF
 }
 
 .playlist_table button {
@@ -95,7 +113,7 @@ body {
 	height: 60px;
 	border-style: solid;
 	border-radius: 30px;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	margin: 10px;
 	padding: 10px;
 }
@@ -105,7 +123,7 @@ body {
 	height: 50px;
 	border-style: solid;
 	border-radius: 30px;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	margin: 10px;
 }
 
@@ -120,17 +138,17 @@ body {
 	width:40%;
 	border-style: solid;
 	border-radius: 10px;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	padding: 5px;
-	background-color: #46829c;
+	background-color: #0C99CF;
 }
 
 #now_playing_container {
 	flex: 1;
 	border-style: solid;
 	border-radius: 10px;
-	border-color: #46629c;
-	background-color: #46829c;
+	border-color: #6C6F70;
+	background-color: #0C99CF;
 }
 
 .tab_title {
@@ -141,18 +159,24 @@ body {
 	width: 20%;
 	border-style: solid;
 	border-radius: 10px 0px 10px 0px;
-	border-color: #46629c;
-	background-color: #46629c;
+	border-color: #6C6F70;
+	background-color: #6C6F70;
 	text-decoration: none;
 	font-family: "Drafting Table", Geneva, Arial, "Helvetica Neue", Helvetica, sans-serif;
 	font-size: 20pt;
-	color: #f4de30;
+
 }
 
-#now_playing section, a {
+#now_playing section {
 	padding: 10px;
-	text-decoration: none;
-	font-size: 12pt;
+}
+
+#now_playing header {
+	margin-top: -45px;
+	margin-bottom: 10px;
+	padding-left: 115px;
+	font-size: 20pt;
+	text-align: left;
 }
 
 .playerbutton button {
@@ -198,36 +222,61 @@ body {
 	margin: auto;
 	width: 100%;
 	border-style: solid;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	border-radius: 10px;
-	background-color: #46829c
+	background-color: #0C99CF;
 }
 
 .explore_album {
 	margin: auto;
 	width: 100%;
 	border-style: solid;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	border-radius: 10px;
-	background-color: #46829c
+}
+
+.album_table {
+	margin: auto;
+}
+
+.explore_album button {
+	background-color: #0C99CF;
+	color: #fff;
+	padding: 0px;
+}
+
+.explore_album button img {
+	width: 100%;
+	height: 100%;
+}
+
+.explore_album button p {
+	display: none;
+	position: relative;
+	margin: auto;
+	padding-bottom: 20px;
 }
 
 .explore_genre {
 	margin: auto;
 	width: 100%;
 	border-style: solid;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	border-radius: 10px;
-	background-color: #46829c
+	background-color: #0C99CF;
+}
+
+.playlist_table {
+	margin: auto;
 }
 
 .explore_tags {
 	margin: auto;
 	width: 100%;
 	border-style: solid;
-	border-color: #46629c;
+	border-color: #6C6F70;
 	border-radius: 10px;
-	background-color: #46829c
+	background-color: #0C99CF;
 }
 .rTable { display: table; } 
 
