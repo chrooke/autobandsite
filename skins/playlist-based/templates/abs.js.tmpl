@@ -6,10 +6,10 @@ var playing=false;
 
 function init(){	
     player = $('#main_player')[0];
+	player.volume = .50;
     playlist = $('#playlist');
     tracks = playlist.find('li a');
     len = tracks.length;
-    player.volume = .50;
     playlist.find('a').click(function(e){
         e.preventDefault();
         link = $(this);
@@ -63,14 +63,14 @@ function togglePlayPause() {
 		playing=true;
         image.src = "SITEURLimages/pause.png";
 		image.alt = "Pause";
-		//document.getElementById('main_player').play()
 		player.play()
     } else {
 		playing=false;
         image.src = "SITEURLimages/play.png";
 		image.alt = "Play";
-        //document.getElementById'main_player').pause()
 		player.pause();
     }
 }
+
+
 window.onload=init;
