@@ -188,8 +188,8 @@ for song in os.listdir(songfiles):
         #copy song file to site, sanitizing filename, but only if the files differ
         try:
             if not filecmp.cmp(songfiles+song,build_media+s.filename): shutil.copyfile(songfiles+song,build_media+s.filename)
-        except:
-            pass
+        except: # assume failed because the filecmp failed because the file wasn't in the build directory already, so just copy it
+            shutil.copyfile(songfiles+song,build_media+s.filename)
         
 # remove any songs still in media that are no longer in the songfiles directory
 # build a set of songs in the songfiles directory
