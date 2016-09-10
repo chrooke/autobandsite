@@ -186,7 +186,10 @@ for song in os.listdir(songfiles):
         s=Song(song,File(songfiles+song))
         songs.append(s)
         #copy song file to site, sanitizing filename, but only if the files differ
-        if not filecmp.cmp(songfiles+song,build_media+s.filename): shutil.copyfile(songfiles+song,build_media+s.filename)
+        try:
+            if not filecmp.cmp(songfiles+song,build_media+s.filename): shutil.copyfile(songfiles+song,build_media+s.filename)
+        except:
+            pass
         
 # remove any songs still in media that are no longer in the songfiles directory
 # build a set of songs in the songfiles directory
