@@ -72,7 +72,7 @@ def playlist_table_block(playlists,columns):
      
 #make index page - this shows the most recent album with the option to see more
 for p in playlists:
-    if p.name == "Showcase":
+    if p.name == showcase_name:
         showcase_playlist=p
 
 
