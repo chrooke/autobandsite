@@ -1,9 +1,10 @@
 /* palette */
-/* #FFF669 */
-/* #0C99CF */
-/* #09A1D9 */
-/* #6C6F70 */
-/* #27282B */
+/* #FFF669 - yellow */
+/* #0C99CF - light blue */
+/* #09A1D9 - darker blue */
+/* #C0C0C0 - light grey */
+/* #6C6F70 - dark grey */
+/* #27282B - black */
 body {
 /*	background-image: url("../images/congruent_outline_gm.png");*/
 	background-color: #0C99CF;
@@ -63,6 +64,10 @@ body a {
 
 .nav_container {
 	margin: auto;
+}
+
+.nav_container button {
+	background-color:#c0c0c0;
 }
 
 .nav_container .rTable {
@@ -128,6 +133,7 @@ background-color: #0C99CF
 	border-color: #6C6F70;
 	margin: 10px;
 	padding: 10px;
+	background-color:#c0c0c0;
 }
 
 #base_nav button {
@@ -224,11 +230,12 @@ padding-top: 5px;
 .playerbutton button {
 	width: 100px ;
 	height: 75px;
-	background-color: #f4de30;
+	background-color: #c0c0c0;
 	border-style: none;
 	border-radius:30px;
 	padding: 0;
 	margin: 2px;
+	border-color: #aaabaa;
 }
 
 .playerbutton button img {
