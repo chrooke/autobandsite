@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # band info - replace this with your own info
-bandname="Geekido Music (Chris Cooke)"
+bandname="Geekido Music"
 siteurl="http://localhost/~chris/"
 #siteurl="http://geekidomusic.com/"
 siteowner="Chris Cooke"
