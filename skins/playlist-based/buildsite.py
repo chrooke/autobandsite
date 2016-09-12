@@ -131,7 +131,7 @@ with open(build_dir+'genres.html','w') as templ:
 
 # build each album page
 for album in album_list():
-    page_title=album.albumname+' by '+ bandname
+    page_title=album.albumname+' by '+ album.albumartist
     with open(build_albums+album.safe_name+".html",'w') as templ:
         content="""<div id="player_container">
                     <div id="player_source_container">"""

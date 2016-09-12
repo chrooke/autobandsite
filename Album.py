@@ -11,6 +11,7 @@ class Album:
         self.copyright=song.copyright
         self.bpm=song.bpm
         self.artist=song.artist
+        self.albumartist=song.artist
         self.genre=song.genre
         self.composer=song.composer
         self.__artwork=song.artwork()

@@ -59,7 +59,8 @@ abs_js_templ=templates+'abs.js.tmpl'
 
 
 #flatten(album_attrs)
-site_tags = {   'SITEURL':siteurl,
+site_tags = {   'BANDNAME':bandname,
+                'SITEURL':siteurl,
                 'SITEOWNER':siteowner,
                 'SITEYEAR':time.strftime("%Y"),
                 'SITEDATE':time.strftime("%c"),
