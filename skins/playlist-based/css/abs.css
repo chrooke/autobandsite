@@ -214,19 +214,31 @@ background-color: #0C99CF
 	text-align: left;
 }
 
+#now_playing .info_container {
+	display: flex;
+	justify-content: space-between;
+}
+
 #now_playing .info_block {
-padding-top: 5px;	
+	flex: 1;
+	padding-top: 5px;	
 }
 
 #now_playing .info_block p {
 	padding: 0px;
 	margin: 0px;
 }
+
+#now_playing .download_button {
+	float: right;
+}
+
 .player {
 	margin: auto;
 	margin-top: 5px;
 	width: 90%;
 }
+
 .playerbutton button {
 	width: 100px ;
 	height: 75px;
