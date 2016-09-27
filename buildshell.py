@@ -29,13 +29,13 @@ build_songs=build_dir+"songs/"
 build_albums=build_dir+"albums/"
 build_playlists=build_dir+"playlists/"
 
-prod_css=siteurl+"css/"
-prod_media=siteurl+"media/"
-prod_images=siteurl+"images/"
-prod_scripts=siteurl+"scripts/"
-prod_songs=siteurl+"songs/"
-prod_albums=siteurl+"albums/"
-prod_playlists=siteurl+"playlists/"
+prod_css=siteroot+"/css/"
+prod_media=siteroot+"/media/"
+prod_images=siteroot+"/images/"
+prod_scripts=siteroot+"/scripts/"
+prod_songs=siteroot+"/songs/"
+prod_albums=siteroot+"/albums/"
+prod_playlists=siteroot+"/playlists/"
 
 #data structures
 songs=[]
@@ -60,7 +60,7 @@ abs_js_templ=templates+'abs.js.tmpl'
 
 #flatten(album_attrs)
 site_tags = {   'BANDNAME':bandname,
-                'SITEURL':siteurl,
+                'SITEROOT':siteroot,
                 'SITEOWNER':siteowner,
                 'SITEYEAR':time.strftime("%Y"),
                 'SITEDATE':time.strftime("%c"),
@@ -176,7 +176,7 @@ shutil.copytree(images,build_images)
 #run certain scripts through the template process while copying
 with open(build_scripts+'abs.js','w') as target:
     with open(abs_js_templ,'r') as templ:
-        target.write(templ.read().replace('SITEURL',siteurl))
+        target.write(templ.read().replace('SITEROOT',siteroot))
 
 # populate the songs and albums lists, copy the song files, and generate album artwork
 

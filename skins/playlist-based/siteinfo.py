@@ -2,7 +2,7 @@
 
 # band info - replace this with your own info
 bandname="Geekido Music"
-siteurl="http://localhost/~chris/"
-#siteurl="http://geekidomusic.com/"
+siteroot="/~chris"
+#siteroot=""
 siteowner="Chris Cooke"
 showcase_name="Showcase"

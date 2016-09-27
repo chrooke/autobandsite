@@ -1,11 +1,11 @@
 function togglePlayPause(song) {
     var image = document.getElementById('ppImage.'+song);
     if (image.src.match("play")) {
-        image.src = "SITEURLimages/Pause.png";
+        image.src = "SITEROOT/images/Pause.png";
 	image.alt = "Pause";
 	document.getElementById('player.'+song).play()
     } else {
-        image.src = "SITEURLimages/play.png";
+        image.src = "SITEROOT/images/play.png";
 	image.alt = "Play";
         document.getElementById('player.'+song).pause()
     }

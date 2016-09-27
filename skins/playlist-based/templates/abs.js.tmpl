@@ -61,12 +61,12 @@ function togglePlayPause() {
     var image = document.getElementById('bPlayPause_img');
     if (!playing) {
 		playing=true;
-        image.src = "SITEURLimages/pause.png";
+        image.src = "SITEROOT/images/pause.png";
 		image.alt = "Pause";
 		player.play()
     } else {
 		playing=false;
-        image.src = "SITEURLimages/play.png";
+        image.src = "SITEROOT/images/play.png";
 		image.alt = "Play";
 		player.pause();
     }

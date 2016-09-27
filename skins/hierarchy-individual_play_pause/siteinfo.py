@@ -2,5 +2,5 @@
 
 # band info - replace this with your own info
 bandname="Chris Cooke"
-siteurl="http://localhost/~chris/"
-siteowner="Chris Cooke"
+siteroot="/~chris"
+#siteroot=""
