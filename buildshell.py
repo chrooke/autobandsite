@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import os
 import shutil
 import time
@@ -9,7 +10,7 @@ from Song import *
 from Album import *
 from Playlist import *
 from siteinfo import *
-
+ 
 ##GLOBALS
 
 #directories
@@ -28,7 +29,7 @@ build_scripts=build_dir+"scripts/"
 build_songs=build_dir+"songs/"
 build_albums=build_dir+"albums/"
 build_playlists=build_dir+"playlists/"
-
+    
 prod_css=siteroot+"/css/"
 prod_media=siteroot+"/media/"
 prod_images=siteroot+"/images/"
