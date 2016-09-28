@@ -4,6 +4,7 @@ import os
 import shutil
 import time
 import filecmp
+import zipfile
 from mutagen import File
 from helpers import *
 from Song import *
@@ -219,14 +220,21 @@ for song in songs:
     else:
         pass #songs without album names get skipped
         
-#generate album art files
+#generate album art files and zip files
 for album in albums:
+    #artwork
     art=album.artwork()
     if art:
         with open(build_images+album.artwork_filename,'wb') as img:
             img.write(art)
     else:
         shutil.copyfile(images+"default.jpg",build_images+album.artwork_filename)
+    #zip file
+    zf=zipfile.ZipFile(build_media+album.safe_name+".zip","w",zipfile.ZIP_DEFLATED)
+    for track in album.tracks():
+        zf.write(build_media+track.filename,track.filename)
+    zf.close()
+        
 
 #make set of song tags and genres
 for song in songs:

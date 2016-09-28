@@ -177,6 +177,13 @@ background-color: #0C99CF
 
 }
 
+#album_block_download {
+	float: right;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	padding-right: 10px;
+}
+
 #now_playing_container {
 	flex: 1;
 	border-style: solid;
