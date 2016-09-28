@@ -5,12 +5,13 @@ import sys
 bandname="Geekido Music"
 siteroots = {
                 'test':"/~chris",
+                'design':"/Users/chris/Devel/autobandsite/autobandsite-build",
                 'production':"",
             }    
 siteowner="Chris Cooke"
 showcase_name="Showcase"
 
-# should need to change anything below this
+# shouldn't need to change anything below this
 try:
     siteroot=siteroots[sys.argv[1]]
 except:
