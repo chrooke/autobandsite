@@ -6,6 +6,7 @@ Concept: Avoid the security overhead of a dynamic web page by generating a stati
 Prerequite: The program requires the Mutagen python module. You can find it here: https://bitbucket.org/lazka/mutagen
 
 Usage: 
+
 1. Copy all your mp3 files into the songfiles directory.
 2. Copy one of the existing skin directories and edit as desired.
 3. Change the skin name in autobandsite.py to the directory name of your skin.
