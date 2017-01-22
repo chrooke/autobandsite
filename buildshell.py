@@ -48,6 +48,7 @@ tags=set([])
 genres=set([])
 tag_playlists=[]
 genre_playlists=[]
+misc_playlists=[]
 changed_songs=[]
 changed_albums=set()
 
@@ -267,7 +268,16 @@ for genre in genres:
     playlist.addSongList(songlist)
     genre_playlists.append(playlist)
     
-playlists=tag_playlists+genre_playlists
+#pre-generate a playlist containing all songs
+all_songs_playlist=Playlist("All Songs")
+songlist=set([])
+for song in songs:
+    songlist.add(song)
+all_songs_playlist.addSongList(songlist)
+misc_playlists.append(all_songs_playlist)
+
+playlists=misc_playlists+tag_playlists+genre_playlists
+    
             
             
 

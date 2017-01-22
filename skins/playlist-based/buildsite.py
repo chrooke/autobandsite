@@ -107,6 +107,9 @@ with open(build_dir+'albums.html','w') as templ:
 with open(build_dir+'playlists.html','w') as templ:
     content='<div class="explore_playlist">'
     content+='<header class="content_header">Explore All Playlists</header>'
+    content+='<h1>Misc Playlists</h1>'
+    content+=playlist_table_block(misc_playlists,5)
+    content+='<h1>Tag Playlists</h1>'
     content+=playlist_table_block(tag_playlists,5)
     content+='<h1>Genre Playlists</h1>'
     content+=playlist_table_block(genre_playlists,5)
