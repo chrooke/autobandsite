@@ -12,7 +12,7 @@ Usage:
 3. Change the skin name in autobandsite.py to the directory name of your skin.
 4. In the siteinfo.py for your skin, edit the info as desired.
 4. Run autobandsite.py <build target>, where <build target> is one of the site root keys in siteinfo.py.
-5. Look fin the directory specified in siteroots in siteinfo.py. Copy these files to your web site.
+5. Look for the directory specified in siteroots in siteinfo.py. Copy these files to your web site.
 
 Warnings: 
 	- All mp3 files must have an album name and a track number defined.
