@@ -4,7 +4,6 @@ Priority
 
 - "granddaddy" playlist with all songs
 - sort the genres and tags alphabetically
-- don't recreate an album's zip file if none of the songs changed
 - style the album download button to be on top of the album art
 
 The rest

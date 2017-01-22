@@ -48,6 +48,8 @@ tags=set([])
 genres=set([])
 tag_playlists=[]
 genre_playlists=[]
+changed_songs=[]
+changed_albums=set()
 
 #template filenames
 base_templ=templates+'base.tmpl'
@@ -190,7 +192,9 @@ for song in os.listdir(songfiles):
         songs.append(s)
         #copy song file to site, sanitizing filename, but only if the files differ
         try:
-            if not filecmp.cmp(songfiles+song,build_media+s.filename): shutil.copyfile(songfiles+song,build_media+s.filename)
+            if not filecmp.cmp(songfiles+song,build_media+s.filename): 
+                shutil.copyfile(songfiles+song,build_media+s.filename)
+                changed_albums.add(s.albumname)
         except: # assume failed because the filecmp failed because the file wasn't in the build directory already, so just copy it
             shutil.copyfile(songfiles+song,build_media+s.filename)
         
@@ -229,11 +233,12 @@ for album in albums:
             img.write(art)
     else:
         shutil.copyfile(images+"default.jpg",build_images+album.artwork_filename)
-    #zip file
-    zf=zipfile.ZipFile(build_media+album.safe_name+".zip","w",zipfile.ZIP_DEFLATED)
-    for track in album.tracks():
-        zf.write(build_media+track.filename,track.filename)
-    zf.close()
+    if album.albumname in changed_albums:    
+        #zip file
+        zf=zipfile.ZipFile(build_media+album.safe_name+".zip","w",zipfile.ZIP_DEFLATED)
+        for track in album.tracks():
+            zf.write(build_media+track.filename,track.filename)
+        zf.close()
         
 
 #make set of song tags and genres
