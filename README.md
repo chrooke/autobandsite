@@ -17,5 +17,4 @@ Usage:
 Warnings: 
 
 - All mp3 files must have an album name and a track number defined.
-- Generated site files will not work properly by browsing the files. 
-- A web server is required for the site to function properly. 
+- Generated site files will not work properly by browsing the files. A web server is required for the site to function properly. 
