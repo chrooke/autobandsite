@@ -3,7 +3,7 @@ Create a static web site for your music using the metadata in your mp3 files.
 
 Concept: Avoid the security overhead of a dynamic web page by generating a static site from the metadata in the mp3 files. Avoid ALL server-side processing.
 
-Prerequite: The program requires the Mutagen python module. You can find it here: https://bitbucket.org/lazka/mutagen
+Prerequite: The program requires the Mutagen python module. You can find it here: https://github.com/quodlibet/mutagen
 
 Usage: 
 
@@ -17,4 +17,5 @@ Usage:
 Warnings: 
 
 - All mp3 files must have an album name and a track number defined.
-- Generated site files will not work properly by browsing the files. A web server is required for the site to function properly. 
+- Generated site files will not work properly by browsing the files. A web server is required for the site to function properly.
+- Logic Pro X fills in an entire date/time string when it populates year in the song's metadata, which breaks program. Use something else for populating the year field of the metadata. 
