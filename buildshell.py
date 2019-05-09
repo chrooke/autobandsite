@@ -198,6 +198,7 @@ for song in os.listdir(songfiles):
                 changed_albums.add(s.albumname)
         except: # assume failed because the filecmp failed because the file wasn't in the build directory already, so just copy it
             shutil.copyfile(songfiles+song,build_media+s.filename)
+            changed_albums.add(s.albumname)
         
 # remove any songs still in media that are no longer in the songfiles directory
 # build a set of songs in the songfiles directory

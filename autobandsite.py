@@ -25,7 +25,7 @@ try:
     from buildsite import *
 except Exception as e:
     print(e);
-    print "Uh-oh! There was an error. Site not built. Cleaning up."
+    print("Uh-oh! There was an error. Site not built. Cleaning up.")
 
 # remove copied files and directories
 import cleanup
